@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+  xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:repository="http://www.springframework.org/schema/data/repository"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.0.xsd
+    ">
+    
+   <context:component-scan base-package="com.eyesc.erp.model" />
+  
+  <bean
+    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"></bean>
+
+  <bean id="mysqlDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/erpDb" />
+  </bean>
+
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <constructor-arg>
+      <ref bean="mysqlDataSource" />
+    </constructor-arg>
+  </bean>
+
+  <!-- set up JPA entity manager factory -->
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="packagesToScan">
+      <list>
+        <value>com.eyesc.erp.model</value>
+      </list>
+    </property>
+    <property name="dataSource" ref="mysqlDataSource" />
+    <property name="jpaVendorAdapter">
+      <bean
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+      </bean>
+    </property>
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.show_sql">false</prop>
+        <prop key="hibernate.format_sql">false</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- specify transaction manager. -->
+  <!-- Spring set up it automatically -->
+  <bean id="tansactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
+  </bean>
+
+  <!-- enable the configuration of transactional behavior based on annotations -->
+  <tx:annotation-driven transaction-manager="tansactionManager" />
+
+  <jpa:repositories base-package="com.eyesc.erp.model"
+    entity-manager-factory-ref="entityManagerFactory"
+    transaction-manager-ref="tansactionManager">
+  </jpa:repositories>
+  
+</beans>

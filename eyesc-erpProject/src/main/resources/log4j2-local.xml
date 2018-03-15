@@ -1,0 +1,23 @@
+<Configuration monitorInterval="30">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601}[%p|%t|%c|%M:%L|u:%X{user}] %m%n" />
+        </Console>
+        <RollingFile name="rollingFile" fileName="C:/log/erp.log" filePattern="C:/log/erp-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{ISO8601}[%p|%t|%c|%M:%L|u:%X{user}] %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.eyesc" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="rollingFile"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="rollingFile"/>
+        </Root>      
+    </Loggers>
+</Configuration>
