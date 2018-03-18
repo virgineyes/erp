@@ -22,8 +22,8 @@ public class MaterialService {
 	}
 	
 	@Transactional(readOnly = false)
-	public void delete(Long id) {
-		materialDao.delete(id);
+	public void delete(String materialId) {
+		materialDao.delete(materialDao.findByMaterialId(materialId));
 	}
 	
 	public Material findByMaterialId(String materialId) {

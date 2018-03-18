@@ -60,11 +60,12 @@
 		<table id="queryMaterialTable" class="table table-striped table-bordered"> 
 	       <thead>
             	<tr>
-	                <th>ID</th>
-	                <th>客戶ID</th>
-	                <th>收件人</th>
-	                <th>客戶來源</th>
-	                <th>接單客戶</th>	
+	                <th>貨號</th>
+	                <th>衣服名稱</th>
+	                <th>價格</th>
+	                <th>更新價格</th>
+	                <th>更新日期</th>
+	                <th>更新</th>	
             	</tr>
         	</thead>
 		</table>

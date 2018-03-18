@@ -36,9 +36,9 @@ public class MaterialRest {
 	}
 
 	@RequestMapping(value = "/deleteMaterial")
-	public String deleteCustomer(String id) {
-		LOGGER.info("deleteId: {}", Long.parseLong(id));
-		materialService.delete(Long.parseLong(id));
+	public String deleteCustomer(String materialId) {
+		LOGGER.info("deleteMaterialId: {}", materialId);
+		materialService.delete(materialId);
 		return null;
 	}
 
@@ -50,7 +50,6 @@ public class MaterialRest {
 
 	@RequestMapping(value = "/searchOneMaterail")
 	public Material searchOneMaterail(String materialId) {
-		System.out.println(materialId);
 		LOGGER.info("Search One materialId: {}", materialId);
 		return materialService.findByMaterialId(materialId);
 	}

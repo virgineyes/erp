@@ -123,7 +123,8 @@ $().ready(function(){
 				data[i].createDate = moment(data[i].createDate).format("YYYY/MM/DD"); 
 				dataSet[i] = $.map(data[i], function(el) { return el });
 			}
-
+			console.log(data);
+			console.log(dataSet);
 			$("#queryCustomerTableContainer").show();
 		
 			var table = $('#queryCustomerTable').DataTable({

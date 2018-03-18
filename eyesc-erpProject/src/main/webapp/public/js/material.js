@@ -98,34 +98,42 @@ $().ready(function(){
 			var dataSet = [];
 			for (var i = 0; i < data.length; i++) {
 				data[i].date = moment(data[i].date).format("YYYY/MM/DD"); 
-				dataSet[i] = $.map(data[i], function(el) { return el });
+				var tempDate;
+				var tempUpdatePrice;
+				if (data[i].date == null || data[i].date == 'Invalid date') {
+					tempDate = '';
+				}
+				if (data[i].updatePrice == null) {
+					tempUpdatePrice = '';
+				}
+				dataSet[i] = [data[i].materialId, data[i].cloth, data[i].price, tempUpdatePrice, tempDate] 
 			}
-	
+
 			$("#queryMaterialTableContainer").show();
 		
 			var table = $('#queryMaterialTable').DataTable({
 				 destroy: true,
 			     data: dataSet,
 			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
-			     scrollX: true,
 			     columnDefs: [ {
 		            targets: -1,
 		            data: null,
-		            defaultContent: "<button class='btn btn-warning'>更新</button>"
+		            defaultContent: "<button class='btn btn-warning'>押更新價格 / 刪除</button>"
 			     } ]
 			});
 			
 			$('#queryMaterialTable tbody').on( 'click', 'button', function () {
 				var data = table.row( $(this).parents('tr') ).data();
+				console.log(data);
 				var dialog = bootbox.dialog({
 					title: '修改或刪除客戶資料',
 					message: "<p>請選「修改」或「刪除」</p>",
 					buttons: {
 					    cancel: {
-					        label: "刪除客戶資料",
+					        label: "刪除貨號",
 					        className: 'btn-danger',
 					        callback: function(){
-					        	bootbox.confirm('確認刪除客戶資料', function(isConfirmed) {
+					        	bootbox.confirm('確認刪除貨號', function(isConfirmed) {
 					      	      if (isConfirmed) {
 						         	deleteNewMaterial(data[0]);
 					      	      }
@@ -133,7 +141,7 @@ $().ready(function(){
 					        }
 					    },
 					    ok: {
-					        label: "修改客戶資料",
+					        label: "押更新價格",
 					        className: 'btn-info',
 					        callback: function(){
 					        	showUpdateMaterial(data);
@@ -146,6 +154,7 @@ $().ready(function(){
 			bootbox.alert("搜尋錯誤，請聯繫工程師");
 		}).always(function() {
 			console.log('complete');
+			console.log('inner');
 		});
 	});
 	
@@ -157,12 +166,12 @@ var showUpdateCustomer = function(data) {
 }
 
 
-var deleteNewMaterial = function(id) {
-	 var deleteId = id;
+var deleteNewMaterial = function(materialId) {
+	 var deleteId = materialId;
 	 $.ajax({
 		url : "deleteMaterial",
 		data : {
-			id : deleteId
+			materialId : deleteId
 		},
 		type : "GET",
 	 }).done(function(data) {
