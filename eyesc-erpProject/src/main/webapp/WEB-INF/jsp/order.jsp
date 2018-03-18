@@ -6,7 +6,7 @@
   	<head>
   		<title>客戶互動紀錄表</title>
 		<%@ include file="header.jsp" %>
-		<script src="public/js/customer.js"></script>  
+		<script src="public/js/order.js"></script>  
 	</head>
 	    
 	<body>
@@ -18,12 +18,12 @@
         <h2>客戶互動紀錄表</h2>
         <br>
         <form id="orderForm">         
-            <div class="form-group control-label col-sm-4">
+            <div class="form-group control-label col-sm-3">
                 <label for="customerId">FB/Line/網站名+電話末五碼:</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="customerId" name = "customerId">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" onclick="intoCustomerInformation()">帶入舊客戶</button>
+                        <button class="btn btn-primary" type="button" onclick="getCustomer()">帶入舊客戶</button>
                     </span>
                 </div> 
             </div>
@@ -43,7 +43,7 @@
                 </select>
             </div>
             
-            <div class="form-group control-label col-sm-3">
+            <div class="form-group control-label col-sm-2">
                 <label for="bodyType">身型:</label>
                     <input type="text" class="form-control" id="bodyType" name="bodyType">
             </div>
@@ -53,35 +53,27 @@
                 <input type="text" class="form-control" id="phone" name ="phone">
             </div>
             
-            <div class="form-group control-label col-sm-5">
+            <div class="form-group control-label col-sm-4">
                 <label for="addressFirst">地址1:</label>
                 <input type="text" class="form-control" id="addressFirst" name = "addressFirst">
             </div>
-            <div class="form-group control-label col-sm-5">
+            <div class="form-group control-label col-sm-4">
                 <label for="addressSecond">地址2(限定此單):</label>
                 <input type="text" class="form-control" id="addressSecond" name = "addressSecond">
             </div>
             
                         
-             <div class="form-group control-label col-sm-3">
-                <label for="shippingNotice">出貨前通知:</label>
-                    <select class="form-control" id="shippingNotice" name="shippingNotice">
+             <div class="form-group control-label col-sm-2">
+                <label for="noticeType">出貨前通知:</label>
+                    <select class="form-control" id="deliveryType" name="noticeType">
                     <option>不通知</option>
                     <option>簡訊</option>
                     <option>電話</option>
                     <option>LINE</option>
                 </select>
             </div>
-
-            <div class="form-group control-label col-sm-3">
-                <label for="payment">匯款/貨到付款:</label>
-                    <select class="form-control" id="payment" name="payment">
-                    <option>貨到付款</option>
-                    <option>匯款</option>
-                </select>
-            </div>
             
-            <div class="form-group control-label col-sm-3">
+            <div class="form-group control-label col-sm-2">
                 <label for="delivery">運費方案:</label>
                     <select class="form-control" id="delivery" name="delivery">
                     <option>本島運費60</option>
@@ -92,30 +84,21 @@
                 </select>
             </div>
             
-            <div class="form-group control-label col-sm-3">
-                <label for="confirm">客戶下單/不下單:</label>
-                    <select class="form-control" id="confirm" name="confirm">
-                    <option>待確認</option>
-                    <option>客戶下單</option>
-                    <option>客戶不下單</option>
-                </select>
-            </div>
+            <input type="hidden" class="form-control" id="stockId" name="stockId">
             
             <div class="form-group control-label col-sm-2">
-                <label for="materialNo">貨號:</label>
+                <label for="materialId">貨號:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="materialNo" name = "materialNo">
+                        <input type="text" class="form-control" id="materialId" name = "materialId">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" onclick="stockNum()">庫存</button>
+                        <button class="btn btn-primary" type="button" onclick="getStock()">庫存</button>
                     </span>
                 </div> 
             </div>
             
-            
             <div class="form-group control-label col-sm-2">
                 <label for="priceType">出清/現貨原價</label>
-                    <select class="form-control" id="priceType" name = "priceType">
-                    <option></option>
+                    <select class="form-control" id="priceType" name="priceType"  disabled>
                     <option>現貨原價</option>
                     <option>出清</option>  
                 </select>
@@ -142,6 +125,23 @@
             </div>
             
             <div class="form-group control-label col-sm-3">
+                <label for="payment">匯款/貨到付款:</label>
+                    <select class="form-control" id="payment" name="payment">
+                    <option>貨到付款</option>
+                    <option>匯款</option>
+                </select>
+            </div>
+            
+            <div class="form-group control-label col-sm-3">
+                <label for="confirm">客戶下單/不下單:</label>
+                    <select class="form-control" id="confirm" name="confirm">
+                    <option>待確認</option>
+                    <option>客戶下單</option>
+                    <option>客戶不下單</option>
+                </select>
+            </div>
+            
+            <div class="form-group control-label col-sm-3">
                 <label for="employee">工作人員:</label>
                     <input type="text" class="form-control" id="employee" name="employee" disabled>    
                 </div>
@@ -156,7 +156,7 @@
             </div>
             
              <div class="col-sm-12">   
-                <button type="submit" class="btn btn-primary">新增客戶</button>
+                <button type="submit" class="btn btn-primary">新增訂單</button>
             </div>
         </form>    
     </div>  

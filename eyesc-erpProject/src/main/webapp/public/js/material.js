@@ -160,34 +160,26 @@ $().ready(function(){
 			console.log('complete');
 		});
 	});
-    
-    
-    $("#updateForm").validate({
-		rules: {
-			updatePrice: {
-				required: true,
-			},
-			date: {
-				required: true,
-			}
-		},
-		messages: {
-			updatePrice: {
-				required: "請輸入更新價格",
-			},
-			date: {
-				required: "請輸入更新日期",
-			}
-		},
-		submitHandler: function(form) {
-			  data = {
-					  materialId: $('input#updateMatrialId').val(),
-					  updatePrice: $('input#updatePrice').val(),
-					  date: $('select#date').val(),
+});
+
+var showUpdateMaterial = function(materialId) {
+    var modal = bootbox.dialog({
+        message: $(".form-content").html(),
+        title: "更新價格",
+        buttons: [
+        {
+            label: "確認更新",
+            className: "btn btn-primary pull-left",
+            callback: function() {	
+              var date = moment($('.modal-dialog .bootbox-body input#date').val()).format("YYYYMMDD");
+              data = {
+					  materialId: materialId,
+					  updatePrice: $('.modal-dialog .bootbox-body input#updatePrice').val(),
+					  date: date,
 		      };  
 			  console.log(data);
 			  
-			  bootbox.confirm('確認跟新價格', function(isConfirmed) {
+			  bootbox.confirm('確認更新價格', function(isConfirmed) {
 			      if (isConfirmed) {
 				      $.ajax({
 							url : "updateMaterial",
@@ -202,23 +194,13 @@ $().ready(function(){
 						});
 			      }
 			  });
-		  }
-	});
-    
 
-});
-
-var showUpdateMaterial = function(materialId) {
-	$('#updateMaterialId').val(materialId);
-    var modal = bootbox.dialog({
-        message: $(".form-content").html(),
-        title: "更新價格",
-        buttons: [
+            }
+          },
           {
             label: "Close",
             className: "btn btn-default pull-left",
             callback: function() {
-              console.log("just do something on close");
             }
           }
         ],
