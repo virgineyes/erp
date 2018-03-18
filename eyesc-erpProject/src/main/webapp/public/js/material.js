@@ -11,7 +11,7 @@ $.validator.setDefaults({
 $().ready(function(){
 	$("#materialForm").validate({
 		rules: {
-			materialNo: {
+			materialId: {
 				required: true,
 			},
 			cloth: {
@@ -23,7 +23,7 @@ $().ready(function(){
 			}
 		},
 		messages: {
-			materialNo: {
+			materialId: {
 				required: "請輸入貨號",
 			},
 			cloth: {
@@ -97,15 +97,20 @@ $().ready(function(){
 		}).done(function(data) { 
 			var dataSet = [];
 			for (var i = 0; i < data.length; i++) {
-				data[i].date = moment(data[i].date).format("YYYY/MM/DD"); 
 				var tempDate;
 				var tempUpdatePrice;
 				if (data[i].date == null || data[i].date == 'Invalid date') {
 					tempDate = '';
+				} else {
+					tempDate = moment(data[i].date).format("YYYY/MM/DD");
 				}
+				
 				if (data[i].updatePrice == null) {
 					tempUpdatePrice = '';
+				} else {
+					tempUpdatePrice = data[i].updatePrice;
 				}
+				
 				dataSet[i] = [data[i].materialId, data[i].cloth, data[i].price, tempUpdatePrice, tempDate] 
 			}
 
@@ -124,7 +129,6 @@ $().ready(function(){
 			
 			$('#queryMaterialTable tbody').on( 'click', 'button', function () {
 				var data = table.row( $(this).parents('tr') ).data();
-				console.log(data);
 				var dialog = bootbox.dialog({
 					title: '修改或刪除客戶資料',
 					message: "<p>請選「修改」或「刪除」</p>",
@@ -144,7 +148,7 @@ $().ready(function(){
 					        label: "押更新價格",
 					        className: 'btn-info',
 					        callback: function(){
-					        	showUpdateMaterial(data);
+					        	showUpdateMaterial(data[0]);
 					        }
 					    }
 					}
@@ -154,15 +158,77 @@ $().ready(function(){
 			bootbox.alert("搜尋錯誤，請聯繫工程師");
 		}).always(function() {
 			console.log('complete');
-			console.log('inner');
 		});
 	});
-	
-	
+    
+    
+    $("#updateForm").validate({
+		rules: {
+			updatePrice: {
+				required: true,
+			},
+			date: {
+				required: true,
+			}
+		},
+		messages: {
+			updatePrice: {
+				required: "請輸入更新價格",
+			},
+			date: {
+				required: "請輸入更新日期",
+			}
+		},
+		submitHandler: function(form) {
+			  data = {
+					  materialId: $('input#updateMatrialId').val(),
+					  updatePrice: $('input#updatePrice').val(),
+					  date: $('select#date').val(),
+		      };  
+			  console.log(data);
+			  
+			  bootbox.confirm('確認跟新價格', function(isConfirmed) {
+			      if (isConfirmed) {
+				      $.ajax({
+							url : "updateMaterial",
+							data : data,
+							type : "POST",
+						}).done(function(data) {
+							reload();
+						}).fail(function() {
+							bootbox.alert("新增錯誤，請聯繫工程師");
+						}).always(function() {
+							console.log('Complete');
+						});
+			      }
+			  });
+		  }
+	});
+    
+
 });
 
-var showUpdateCustomer = function(data) {
-
+var showUpdateMaterial = function(materialId) {
+	$('#updateMaterialId').val(materialId);
+    var modal = bootbox.dialog({
+        message: $(".form-content").html(),
+        title: "更新價格",
+        buttons: [
+          {
+            label: "Close",
+            className: "btn btn-default pull-left",
+            callback: function() {
+              console.log("just do something on close");
+            }
+          }
+        ],
+        show: false,
+        onEscape: function() {
+          modal.modal("hide");
+        }
+    });
+    
+    modal.modal("show");
 }
 
 

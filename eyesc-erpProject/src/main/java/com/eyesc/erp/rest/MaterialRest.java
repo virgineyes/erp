@@ -1,5 +1,7 @@
 package com.eyesc.erp.rest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,6 @@ public class MaterialRest {
 			newMaterial.setMaterialId(materialId);
 			newMaterial.setCloth(cloth);
 			newMaterial.setPrice(Integer.valueOf(price));
-			newMaterial.setDate(new Date());
 			materialService.save(newMaterial);
 		}
 		return null;
@@ -52,6 +53,16 @@ public class MaterialRest {
 	public Material searchOneMaterail(String materialId) {
 		LOGGER.info("Search One materialId: {}", materialId);
 		return materialService.findByMaterialId(materialId);
+	}
+	
+	@RequestMapping(value = "/updateMaterial")
+	public String updateMaterial(String materialId, String updatePrice, String date) throws ParseException {
+		LOGGER.info("Update materialId: {}", materialId);
+		Material material = materialService.findByMaterialId(materialId);
+		material.setUpdatePrice(Integer.valueOf(updatePrice));
+		material.setDate(new SimpleDateFormat("yyyyMMdd").parse(date));
+		materialService.save(material);
+		return null;
 	}
 
 }

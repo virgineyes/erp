@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
   		<title>散客物品表</title>
@@ -48,7 +49,7 @@
       <form class="form-inline"> 
           <label for="queryMaterail" style="margin:5px 5px 5px 5px;">收尋 (貨號):</label>
           <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryMaterialId" name="queryMaterail">    
-          <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterial" class="btn btn-success">搜尋客戶</button>
+          <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterial" class="btn btn-success">搜尋貨號</button>
       </form>
     </div>
     
@@ -70,5 +71,7 @@
         	</thead>
 		</table>
 	</div>
+	
+    <%@ include file="materialBootbox.jsp" %>
 </body>
 </html>
