@@ -81,7 +81,7 @@
             
             <div class="form-group control-label col-sm-12">
                 <label for="hint">備註:</label>
-                    <textarea class="form-control" rows="4" id="hint" name="hint"></textarea>
+                    <textarea class="form-control" rows="2" id="hint" name="hint"></textarea>
             </div>
             
             <div class="form-group control-label col-sm-6">

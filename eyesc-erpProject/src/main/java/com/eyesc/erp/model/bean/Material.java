@@ -32,15 +32,7 @@ public class Material implements Serializable {
 	
 	@Column(name = "UPDATE_PRICE")
 	private Integer updatePrice;
-
-	public Integer getUpdatePrice() {
-		return updatePrice;
-	}
-
-	public void setUpdatePrice(Integer updatePrice) {
-		this.updatePrice = updatePrice;
-	}
-
+	
 	@Column(name = "DATE")
 	private Date date;
 
@@ -89,4 +81,13 @@ public class Material implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	public Integer getUpdatePrice() {
+		return updatePrice;
+	}
+
+	public void setUpdatePrice(Integer updatePrice) {
+		this.updatePrice = updatePrice;
+	}
+
 }

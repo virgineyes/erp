@@ -14,19 +14,16 @@ import com.eyesc.erp.model.service.CustomerService;
 
 @RestController
 public class CustomerRest {
-	private static Logger LOGGER = LoggerFactory.getLogger(CustomerRest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerRest.class);
 
 	@Autowired
 	private CustomerService customerService;
 
-	@RequestMapping(value = "/customerCreate")
-	public String customerCreate(String customerId, String name, String customerSource, String blockList,
+	@RequestMapping(value = "/createCustomer")
+	public String createCustomer(String customerId, String name, String customerSource, String blockList,
 			String deliveryType, String shippingMoney, String bodyType, String noticeType, String phone, String hint,
 			String addressFirst, String addressSecond) {
-		LOGGER.info(
-				"customerId: ?, name: ?, customerSource: ?, blockList: ?, deliveryType: ?, shippingMoney: ?,  bodyType: ?, noticeType: ?, phone: ?, hint: ?, addressFirst: ?, addressSecond: ?",
-				customerId, name, customerSource, blockList, deliveryType, shippingMoney, bodyType, noticeType, phone,
-				hint, addressFirst, addressSecond);
+		LOGGER.info("Create customerId: {}", customerId);
 		Customer cus = customerService.findByCustomerId(customerId);
 		Customer customer = null;
 		if (cus == null) {
@@ -61,20 +58,20 @@ public class CustomerRest {
 
 	@RequestMapping(value = "/deleteCustomer")
 	public String deleteCustomer(String id) {
-		LOGGER.info("deleteId: ?", Long.parseLong(id));
+		LOGGER.info("deleteId: {}", Long.parseLong(id));
 		customerService.delete(Long.parseLong(id));
 		return null;
 	}
 
 	@RequestMapping(value = "/searchCustomer")
 	public List<Customer> searchCustomer(String customerId) {
-		LOGGER.info("customerId: ?", customerId);
+		LOGGER.info("Search customerId: {}", customerId);
 		return customerService.findByCustomerIdList(customerId);
 	}
 
 	@RequestMapping(value = "/searchOneCustomer")
 	public Customer searchOneCustomer(String customerId) {
-		LOGGER.info("customerId: ?", customerId);
+		LOGGER.info("Search One customerId: {}", customerId);
 		return customerService.findByCustomerId(customerId);
 	}
 
@@ -82,7 +79,7 @@ public class CustomerRest {
 	public Customer updateCustomer(String customerId, String name, String customerSource, String blockList,
 			String deliveryType, String bodyType, String noticeType, String phone, String hint, String addressFirst,
 			String addressSecond) {
-		LOGGER.info("customerId: ?", customerId);
+		LOGGER.info("Update customerId: {}", customerId);
 		Customer customer = customerService.findByCustomerId(customerId);
 		String newCustomerId = customerId.substring(0, customerId.length() - 5)
 				+ phone.substring(phone.length() - 5, phone.length());

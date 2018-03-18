@@ -19,7 +19,27 @@ public class ErpController {
 	}
 	
 	@RequestMapping(value = "/material", method = RequestMethod.GET)
-	public String inventory(HttpServletRequest request) {
+	public String material(HttpServletRequest request) {
 		return "/material";
+	}
+	
+	@RequestMapping(value = "/stock", method = RequestMethod.GET)
+	public String stock(HttpServletRequest request) {
+		return "/stock";
+	}
+	
+	@RequestMapping(value = "/shipping", method = RequestMethod.GET)
+	public String shipping(HttpServletRequest request) {
+		return "/shipping";
+	}
+	
+	@RequestMapping(value = "/returns", method = RequestMethod.GET)
+	public String returns(HttpServletRequest request) {
+		return "/returns";
+	}
+	
+	@RequestMapping(value = "/salesOrder", method = RequestMethod.GET)
+	public String salesOrder(HttpServletRequest request) {
+		return "/salesOrder";
 	}
 }

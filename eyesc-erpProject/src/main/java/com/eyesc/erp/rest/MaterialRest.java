@@ -19,9 +19,9 @@ public class MaterialRest {
 	@Autowired
 	private MaterialService materialService;
 
-	@RequestMapping(value = "/materialCreate")
-	public String customerCreate(String materialId, String cloth, String price) {
-		LOGGER.info("materialId: ?, cloth: ?, price: ?", materialId, cloth, price);
+	@RequestMapping(value = "/createMaterial")
+	public String createMaterial(String materialId, String cloth, String price) {
+		LOGGER.info("Create materialId: {}", materialId);
 		Material material = materialService.findByMaterialId(materialId);
 		Material newMaterial = null;
 		if (material == null) {
@@ -37,20 +37,21 @@ public class MaterialRest {
 
 	@RequestMapping(value = "/deleteMaterial")
 	public String deleteCustomer(String id) {
-		LOGGER.info("deleteId: ?", Long.parseLong(id));
+		LOGGER.info("deleteId: {}", Long.parseLong(id));
 		materialService.delete(Long.parseLong(id));
 		return null;
 	}
 
 	@RequestMapping(value = "/searchMaterial")
 	public List<Material> searchCustomer(String materialId) {
-		LOGGER.info("materialId", materialId);
+		LOGGER.info("Search materialId: {}", materialId);
 		return materialService.findByMaterialIdList(materialId);
 	}
 
 	@RequestMapping(value = "/searchOneMaterail")
-	public Material searchOneCustomer(String materialId) {
-		LOGGER.info("materialId: ?", materialId);
+	public Material searchOneMaterail(String materialId) {
+		System.out.println(materialId);
+		LOGGER.info("Search One materialId: {}", materialId);
 		return materialService.findByMaterialId(materialId);
 	}
 

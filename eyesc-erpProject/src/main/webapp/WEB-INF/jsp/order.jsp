@@ -62,45 +62,7 @@
                 <input type="text" class="form-control" id="addressSecond" name = "addressSecond">
             </div>
             
-            <div class="form-group control-label col-sm-3">
-                <label for="materialNo">貨號:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="materialNo" name = "materialNo">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" onclick="stockNum()">庫存</button>
-                    </span>
-                </div> 
-            </div>
-            
-            <div class="form-group control-label col-sm-3">
-                <label for="priceType">出清/現貨原價</label>
-                    <select class="form-control" id="priceType" name = "priceType">
-                    <option></option>
-                    <option>現貨原價</option>
-                    <option>出清</option>  
-                </select>
-            </div>
-            
-             <div class="form-group control-label col-sm-3">
-                <label for="count">件數:</label>
-                    <input type="text" class="form-control" id="count" name="count">
-            </div>
-            
-             <div class="form-group control-label col-sm-3">
-                <label for="cutSize">剪標尺碼:</label>
-                    <input type="text" class="form-control" id="cutSize" name="cutSize">
-            </div>
-            
-            <div class="form-group control-label col-sm-3">
-                <label for="cusSize">客要尺碼:</label>
-                    <input type="text" class="form-control" id="cusSize" name="cusSize">
-            </div>
-            
-            <div class="form-group control-label col-sm-3">
-                <label for="color">顏色:</label>
-                    <input type="text" class="form-control" id="color" name="color">
-            </div>
-            
+                        
              <div class="form-group control-label col-sm-3">
                 <label for="shippingNotice">出貨前通知:</label>
                     <select class="form-control" id="shippingNotice" name="shippingNotice">
@@ -137,6 +99,46 @@
                     <option>客戶下單</option>
                     <option>客戶不下單</option>
                 </select>
+            </div>
+            
+            <div class="form-group control-label col-sm-2">
+                <label for="materialNo">貨號:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="materialNo" name = "materialNo">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" onclick="stockNum()">庫存</button>
+                    </span>
+                </div> 
+            </div>
+            
+            
+            <div class="form-group control-label col-sm-2">
+                <label for="priceType">出清/現貨原價</label>
+                    <select class="form-control" id="priceType" name = "priceType">
+                    <option></option>
+                    <option>現貨原價</option>
+                    <option>出清</option>  
+                </select>
+            </div>
+            
+             <div class="form-group control-label col-sm-2">
+                <label for="count">件數:</label>
+                    <input type="text" class="form-control" id="count" name="count">
+            </div>
+            
+             <div class="form-group control-label col-sm-2">
+                <label for="cutSize">剪標尺碼:</label>
+                    <input type="text" class="form-control" id="cutSize" name="cutSize">
+            </div>
+            
+            <div class="form-group control-label col-sm-2">
+                <label for="cusSize">客要尺碼:</label>
+                    <input type="text" class="form-control" id="cusSize" name="cusSize">
+            </div>
+            
+            <div class="form-group control-label col-sm-2">
+                <label for="color">顏色:</label>
+                    <input type="text" class="form-control" id="color" name="color">
             </div>
             
             <div class="form-group control-label col-sm-3">

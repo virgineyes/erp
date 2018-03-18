@@ -62,19 +62,24 @@ $().ready(function(){
 					  addressFirst: $('input#addressFirst').val(),
 					  addressSecond: $('input#addressSecond').val(),
 		      };  
+			  
+			  var customerId = {
+					  customerId: $('input#customerId').val(),
+			  }
 
-			  bootbox.confirm('確認新增客戶', function(isConfirmed) {	  
+;			  bootbox.confirm('確認新增客戶', function(isConfirmed) {	  
 			      if (isConfirmed) {
 				      $.ajax({
 							url : "searchOneCustomer",
-							data : data.customerId,
+							data : customerId,
 							type : "POST",
 						}).done(function(returnData) {
+							console.log(returnData);
 							if (returnData == null || returnData == '') {
 								var customerColumn = column;
 								$("#newCustomer").show();
 								$("button#deleteNewCustomer").attr("onclick","reload()");
-								$("button#confirmNewCustomer").attr("onclick","creatCustomer()");
+								$("button#confirmNewCustomer").attr("onclick","createCustomer()");
 								
 								var newCustomer = [];
 								newCustomer[0] = data;			
@@ -254,10 +259,9 @@ var deleteNewCustomer = function(id) {
 	 });
 }
 
-
-var creatCustomer = function() {
+var createCustomer = function() {
 	$.ajax({
-		url : "customerCreate",
+		url : "createCustomer",
 		data : data,
 		type : "POST",
 	}).done(function(data) {
@@ -268,7 +272,6 @@ var creatCustomer = function() {
 		console.log('Complete');
 	});
 }
-
 
 var showUpdateCustomer = function(data) {
 	$("#updateTitle").empty();
@@ -289,10 +292,6 @@ var showUpdateCustomer = function(data) {
 	$("#updateAddressFirst").val(data[11]);
 	$("#updateAddressSecond").val(data[12]);
 	$("#update").show();
-}
-
-var reload = function() {
-	location.reload();
 }
 
 var column = [{
@@ -335,12 +334,3 @@ var column = [{
 	    return moment(val).format("YYYY/MM/DD");
 	}
 }];
-
-function format (d) {
-    return d;
-}
-
-function dataTableFormat(d) {
-	return 'Address1: ' + d.addressFirst + '<br>'
-			+ 'Address2: ' + d.addressSecond + '<br>';
-}

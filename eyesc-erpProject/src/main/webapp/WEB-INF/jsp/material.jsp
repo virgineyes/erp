@@ -5,7 +5,7 @@
 	<head>
   		<title>散客物品表</title>
 		<%@ include file="header.jsp" %>
-	    <script src="public/js/customer.js"></script>  
+	    <script src="public/js/material.js"></script>  
 	</head>
     
 	<body>
@@ -43,11 +43,12 @@
     	<button id="confirmNewMaterial" type="button" class="btn btn-primary">確認新增貨號</button> 
 	</div>
 	<br/>
+	
     <div class="container">
       <form class="form-inline"> 
           <label for="queryMaterail" style="margin:5px 5px 5px 5px;">收尋 (貨號):</label>
-          <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryMaterailId" name="queryMaterail">    
-          <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterail" class="btn btn-success">搜尋客戶</button>
+          <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryMaterialId" name="queryMaterail">    
+          <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterial" class="btn btn-success">搜尋客戶</button>
       </form>
     </div>
     
@@ -55,8 +56,18 @@
 		<br/>
     </div>
 
-	 <div class="container">
-		<table id="queryList" class="display" style="visibility:hidden"> </table>
+	 <div class="container" id="queryMaterialTableContainer" style="display:none">
+		<table id="queryMaterialTable" class="table table-striped table-bordered"> 
+	       <thead>
+            	<tr>
+	                <th>ID</th>
+	                <th>客戶ID</th>
+	                <th>收件人</th>
+	                <th>客戶來源</th>
+	                <th>接單客戶</th>	
+            	</tr>
+        	</thead>
+		</table>
 	</div>
 </body>
 </html>

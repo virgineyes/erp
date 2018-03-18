@@ -22,4 +22,5 @@
  <script src="public/js/bootstrap/bootstrap-table-zh-CN.min.js"></script>
  <script src="public/js/moment/moment.js"></script>  
  <script src="public/js/validationUtil.js"></script>  
+ <script src="public/js/commonUtil.js"></script>  
  

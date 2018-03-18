@@ -18,10 +18,10 @@
                 <li class="active"><a href="../erp/customer.do">客戶資料表</a></li>
                 <li class="active"><a href="../erp/order.do">客戶互動紀錄表</a></li>
                 <li class="active"><a href="../erp/material.do">散客物品表</a></li>
-                <li><a href="../jsp/stock.html">庫存資料表</a></li>
-                <li><a href="#">出貨表</a></li>
-                <li><a href="#">退貨匯款表</a></li>
-                <li><a href="#">下單銷單追貨表</a></li>
+                <li class="active"><a href="../erp/stock.do">庫存資料表</a></li>
+                <li class="active"><a href="../erp/shipping.do">出貨表</a></li>
+                <li class="active"><a href="../erp/returns.do">退貨匯款表</a></li>
+                <li class="active"><a href="../erp/salesOrder.do">下單銷單追貨表</a></li>
                 <li><a href="#">訂單總覽</a></li>
             </ul>
         </div>
