@@ -85,14 +85,10 @@
             </div>
             
             <div class="form-group control-label col-sm-6">
-                <label for="addressFirst">地址1:</label>
+                <label for="addressFirst">地址:</label>
                     <input type="text" class="form-control" id="addressFirst" name="addressFirst">
-                </div>
-            <div class="form-group control-label col-sm-6">
-                <label for="addressSecond">地址2(限定此單):</label>
-               		<input type="text" class="form-control" id="addressSecond" name="addressSecond">    
             </div>
-                
+
             <div class="col-sm-12">   
                 <button type="submit" class="btn btn-primary">新增訂單</button>
             </div>
@@ -136,8 +132,7 @@
 	                <th>出貨前通知</th>
 	                <th>電話</th>
 	                <th>備註</th>
-	                <th>地址1</th>
-	                <th>地址2(限定此單)</th>
+	                <th>地址</th>
 	                <th>新增日期</th>   
 	                <th>更新</th>  	
             	</tr>
@@ -207,14 +202,10 @@
             </div>
             
             <div class="form-group control-label col-sm-6">
-                <label for="addressFirst">地址1:</label>
+                <label for="addressFirst">地址:</label>
                     <input type="text" class="form-control" id="updateAddressFirst" name="addressFirst">
-                </div>
-            <div class="form-group control-label col-sm-6">
-                <label for="addressSecond">地址2(限定此單):</label>
-               		<input type="text" class="form-control" id="updateAddressSecond" name="addressSecond">    
             </div>
-                
+     
             <div class="col-sm-1">   
                 <button type="submit" class="btn btn-primary">更新客戶</button>
             </div>

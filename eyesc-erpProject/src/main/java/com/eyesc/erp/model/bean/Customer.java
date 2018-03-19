@@ -54,9 +54,6 @@ public class Customer implements Serializable {
     @Column(name = "ADDRESS_1")
     private String addressFirst;
     
-    @Column(name = "ADDRESS_2")
-    private String addressSecond;
-    
     @Column(name = "CREATE_DATE")
     private Date createDate;
 
@@ -66,7 +63,7 @@ public class Customer implements Serializable {
 				.add("customerSource", customerSource).add("blockList", blockList).add("deliveryType", deliveryType)
 				.add("shippingMoney", shippingMoney).add("bodyType", bodyType).add("noticeType", noticeType)
 				.add("phone", phone).add("hint", hint).add("addressFirst", addressFirst)
-				.add("addressSecond", addressSecond).add("createDate", createDate).toString();
+				.add("createDate", createDate).toString();
 	}
 
 	public Long getId() {
@@ -163,14 +160,6 @@ public class Customer implements Serializable {
 
 	public void setAddressFirst(String addressFirst) {
 		this.addressFirst = addressFirst;
-	}
-
-	public String getAddressSecond() {
-		return addressSecond;
-	}
-
-	public void setAddressSecond(String addressSecond) {
-		this.addressSecond = addressSecond;
 	}
 	
 	public Date getCreateDate() {

@@ -36,12 +36,6 @@
                </select>
            </div>
             
-            
-            <div class="form-group control-label col-sm-2">
-                <label for="bodyType">身型:</label>
-                    <input type="text" class="form-control" id="bodyType" name="bodyType">    
-            </div> 
-            
             <div class="form-group control-label col-sm-2">
                 <label for="bust">胸圍B:</label>
                     <input type="text" class="form-control" id="bust" name="bust">    

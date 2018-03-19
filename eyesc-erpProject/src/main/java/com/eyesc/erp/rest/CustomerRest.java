@@ -48,7 +48,6 @@ public class CustomerRest {
 			customer.setPhone(phone);
 			customer.setHint(hint);
 			customer.setAddressFirst(addressFirst);
-			customer.setAddressSecond(addressSecond);
 			customer.setCreateDate(new Date());
 
 			customerService.save(customer);
@@ -97,7 +96,6 @@ public class CustomerRest {
 		customer.setPhone(phone);
 		customer.setHint(hint);
 		customer.setAddressFirst(addressFirst);
-		customer.setAddressSecond(addressSecond);
 		customer.setCreateDate(new Date());
 		customerService.save(customer);
 		return null;

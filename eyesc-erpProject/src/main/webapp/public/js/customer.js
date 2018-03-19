@@ -60,7 +60,6 @@ $().ready(function(){
 					  phone: $('input#phone').val(),
 					  hint: $('textarea#hint').val(),
 					  addressFirst: $('input#addressFirst').val(),
-					  addressSecond: $('input#addressSecond').val(),
 		      };  
 			  
 			  var customerId = {
@@ -219,7 +218,6 @@ $().ready(function(){
 					  phone: $('input#updatePhone').val(),
 					  hint: $('textarea#updateHint').val(),
 					  addressFirst: $('input#updateAddressFirst').val(),
-					  addressSecond: $('input#updateAddressSecond').val(),
 		      };  
 			  console.log(data);
 			  

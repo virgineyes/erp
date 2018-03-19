@@ -60,7 +60,6 @@ public class MaterialRest {
 		LOGGER.info("Update materialId: {}", materialId);
 		Material material = materialService.findByMaterialId(materialId);
 		material.setUpdatePrice(Integer.valueOf(updatePrice));
-		System.out.println(date);
 		material.setDate(new SimpleDateFormat("yyyyMMdd").parse(date));
 		materialService.save(material);
 		return null;

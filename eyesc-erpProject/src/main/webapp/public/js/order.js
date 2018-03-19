@@ -60,11 +60,6 @@ $().ready(function(){
  });
 
 
-
-
-
-
-
 function intoCustomerInformation() {
 	
 	
