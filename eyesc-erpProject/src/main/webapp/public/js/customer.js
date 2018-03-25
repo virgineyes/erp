@@ -3,6 +3,10 @@
  *		
  */
 
+function format ( d ) {
+    return '	地址: '+ d[10] + '<br>'
+}
+
 $().ready(function(){
 	$("#customerForm").validate({
 		rules: {
@@ -49,17 +53,25 @@ $().ready(function(){
 			},
 		},
 		submitHandler: function(form) {
+			  var blockList;
+			  if ($('select#blockList').val() == 1) {
+				  blockList = 'O';
+			  } else {
+				  blockList = 'X';
+			  }
+			
 			  data = {
 					  customerId: $('input#customerId').val(),
 					  name: $('input#name').val(),
-					  customerSource: $('select#customerSource').val(),
-					  blockList: $('select#blockList').val(),
-					  deliveryType: $('select#deliveryType').val(),
 					  bodyType: $('input#bodyType').val(),
+					  customerSource: $('select#customerSource').val(),
+					  deliveryType: $('select#deliveryType').val(),
+					  blockList: blockList,
 					  noticeType: $('select#noticeType').val(),
+					  shippingMoney: $('input#shippingMoney').val(),
 					  phone: $('input#phone').val(),
-					  hint: $('textarea#hint').val(),
 					  addressFirst: $('input#addressFirst').val(),
+					  hint: $('textarea#hint').val()
 		      };  
 			  
 			  var customerId = {
@@ -81,7 +93,9 @@ $().ready(function(){
 								$("button#confirmNewCustomer").attr("onclick","createCustomer()");
 								
 								var newCustomer = [];
-								newCustomer[0] = data;			
+								newCustomer[0] = data;		
+								
+								console.log(data);
 								
 								$('#newCustomerTable').bootstrapTable({
 							        columns : customerColumn,
@@ -124,6 +138,8 @@ $().ready(function(){
 			}
 
 			$("#queryCustomerTableContainer").show();
+			
+			console.log(dataSet);
 		
 			var table = $('#queryCustomerTable').DataTable({
 				 destroy: true,
@@ -136,15 +152,43 @@ $().ready(function(){
 			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
 			     scrollX: true,
 			     columnDefs: [ {
-		            targets: -1,
-		            data: null,
-		            defaultContent: "<button class='btn btn-warning'>更新</button>"
-			     } ]
+			    	 		targets: -1,
+			    	 		data: null,
+			    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>更新</button>"
+			     	},{		            
+		                targets:0,
+		                orderable:false,
+		                data:null,
+		                defaultContent: "<button class='btn btn-info' id='openData'>開關</button>"
+		            },{
+	                    targets: [10],
+	                    visible: false
+	            }]
 			});
 			
-			$('#queryCustomerTable tbody').on( 'click', 'button', function () {
+			
+			 
+		    $('#queryCustomerTable tbody').on( 'click', 'button#openData', function () {
+		        var tr = $(this).closest('tr');
+		        var row = table.row( tr )
+		        
+		        if ( row.child.isShown() ) {
+		            tr.removeClass( 'details' );
+		            row.child.hide();
+
+		        }
+		        else {
+		            tr.addClass( 'details' );
+		            row.child( format( row.data()) ).show();
+		        }
+		    } );
+		    
+		    
+			
+			$('#queryCustomerTable tbody').on( 'click', 'button#updateButton', function () {
 				var data = table.row( $(this).parents('tr') ).data();
-				var dialog = bootbox.dialog({
+				console.log(data);
+				bootbox.dialog({
 					title: '修改或刪除客戶資料',
 					message: "<p>請選「修改」或「刪除」</p>",
 					buttons: {
@@ -153,17 +197,18 @@ $().ready(function(){
 					        className: 'btn-danger',
 					        callback: function(){
 					        	bootbox.confirm('確認刪除客戶資料', function(isConfirmed) {
-					      	      if (isConfirmed) {
+					        		if (isConfirmed) {
 						         	deleteNewCustomer(data[0]);
-					      	      }
+					      	    }
 					        	})
 					        }
 					    },
 					    ok: {
 					        label: "修改客戶資料",
 					        className: 'btn-info',
-					        callback: function(){
-					        	showUpdateCustomer(data);
+					        callback: function() {
+					        		console.log('update');
+					        		showUpdateCustomer(data);
 					        }
 					    }
 					}
@@ -218,6 +263,7 @@ $().ready(function(){
 					  phone: $('input#updatePhone').val(),
 					  hint: $('textarea#updateHint').val(),
 					  addressFirst: $('input#updateAddressFirst').val(),
+					  addressSecond: $('input#updateAddressSecond').val(),
 		      };  
 			  console.log(data);
 			  
@@ -286,9 +332,8 @@ var showUpdateCustomer = function(data) {
 	$("#updateBodyType").val(data[7]);
 	$("#updateNoticeType").val(data[8]);
 	$("#updatePhone").val(data[9]);
-	$("#updateHint").val(data[10]);
-	$("#updateAddressFirst").val(data[11]);
-	$("#updateAddressSecond").val(data[12]);
+	$("#updateAddressFirst").val(data[10]);
+	$("#updateHint").val(data[11]);
 	$("#update").show();
 }
 
@@ -299,32 +344,32 @@ var column = [{
     field: 'name',
     title: '收件人'
 }, {
+    field: 'bodyType',
+    title: '身型'
+}, {
     field: 'customerSource',
     title: '客戶來源'
-},  {
-    field: 'blockList',
-    title: '是否接單'
-},  {
+}, {
     field: 'deliveryType',
     title: '運費方案'
-},  {
-    field: 'shippingMoney',
-    title: '購物金'
-},  {
+}, {
+    field: 'blockList',
+    title: '是否接單'
+}, {
     field: 'noticeType',
     title: '出貨前通知'
-},  {
+}, {
+    field: 'shippingMoney',
+    title: '購物金'
+}, {
+    field: 'addressFirst',
+    title: '地址'
+}, {
     field: 'phone',
     title: '電話'
-},  {
-    field: 'hint',
-    title: '備註'
-},  {
-    field: 'addressFirst',
-    title: '地址1'
-},  {
-    field: 'addressSecond',
-    title: '地址2(限定此單)'
+}, {
+    	field: 'hint',
+    	title: '備註'
 }, {
 	field: 'createDate',
 	title: '新增日期',

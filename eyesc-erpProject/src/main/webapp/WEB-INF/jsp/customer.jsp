@@ -18,53 +18,48 @@
         <h2>客戶資料表</h2>
         <br>
         <form id="customerForm">
-           <div class="form-group control-label col-sm-4">
+           <div class="form-group control-label col-sm-3">
                <label for="customerId">FB/Line/網站名+電話末五碼(客戶ID):</label>
                <input type="text" class="form-control" id="customerId" name="customerId">
            </div>
            
-           <div class="form-group control-label col-sm-3">
+           <div class="form-group control-label col-sm-2">
                 <label for="name">收件人:</label>
                 <input type="text" class="form-control" id="name" name="name">
            </div>
+           
+           <div class="form-group control-label col-sm-1">
+                <label for="bodyType">身型:</label>
+                    <input type="text" class="form-control" id="bodyType" name="bodyType">    
+            </div> 
             
-           <div class="form-group control-label col-sm-2">
+            
+           <div class="form-group control-label col-sm-1">
                <label  for="customerSource">客戶來源:</label>
                <select class="form-control" id="customerSource" name="customerSource">
-                   <option value="FB">FB</option>
                    <option value="Line">Line</option>
+                    <option value="FB">FB</option>
                    <option value="網站">網站</option>
                    <option value="電話">電話</option>   
                </select>
            </div>
-               
-           <div class="form-group control-label col-sm-3">
-                <label for="blockList">客戶狀態:</label>
-                <select class="form-control" id="blockList" name="blockList">
-                    <option value="1">接單客戶</option>
-                    <option value="0">不接單客戶</option>
-               	</select>
-            </div>
-            
-            <div class="form-group control-label col-sm-2">
+           
+           <div class="form-group control-label col-sm-2">
                 <label for="deliveryType">運費方案:</label>
                     <select class="form-control" id="deliveryType" name="deliveryType">
                     <option>依本館規則</option>
                     <option>完全免運</option>
                 </select>
             </div>
-            
-            <div class="form-group control-label col-sm-2">
-                <label for="shippingMoney">購物金:</label>
-                    <input type="text" class="form-control" id="shippingMoney" name="shippingMoney">    
+               
+           <div class="form-group control-label col-sm-1">
+                <label for="blockList">客戶狀態:</label>
+                <select class="form-control" id="blockList" name="blockList">
+                    <option value="1">接單</option>
+                    <option value="0">不接單</option>
+               	</select>
             </div>
             
-            
-            <div class="form-group control-label col-sm-3">
-                <label for="bodyType">身型:</label>
-                    <input type="text" class="form-control" id="bodyType" name="bodyType">    
-            </div> 
-                       
             <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
                     <select class="form-control" id="noticeType" name="noticeType">
@@ -75,22 +70,27 @@
             </div>
             
             <div class="form-group control-label col-sm-3">
-                <label for="phone">電話:</label>
-                    <input type="text" class="form-control" id="phone" name="phone">    
-            </div>
-            
-            <div class="form-group control-label col-sm-12">
-                <label for="hint">備註:</label>
-                    <textarea class="form-control" rows="2" id="hint" name="hint"></textarea>
+                <label for="shippingMoney">購物金:</label>
+                    <input type="text" class="form-control" id="shippingMoney" name="shippingMoney">    
             </div>
             
             <div class="form-group control-label col-sm-6">
                 <label for="addressFirst">地址:</label>
                     <input type="text" class="form-control" id="addressFirst" name="addressFirst">
             </div>
-
+            
+            <div class="form-group control-label col-sm-3">
+                <label for="phone">電話:</label>
+                    <input type="text" class="form-control" id="phone" name="phone">    
+            </div>
+            
+            <div class="form-group control-label col-sm-12">
+                <label for="hint">備註:</label>
+                    <textarea class="form-control" rows="1" id="hint" name="hint"></textarea>
+            </div>
+   
             <div class="col-sm-12">   
-                <button type="submit" class="btn btn-primary">新增訂單</button>
+                <button type="submit" class="btn btn-primary">新增客戶</button>
             </div>
         </form>    
     </div>
@@ -121,20 +121,20 @@
 		<table id="queryCustomerTable" class="table table-striped table-bordered"> 
 	       <thead>
             	<tr>
-	                <th>ID</th>
-	                <th>客戶ID</th>
-	                <th>收件人</th>
-	                <th>客戶來源</th>
-	                <th>接單客戶</th>
-	                <th>運費方案</th>
-	                <th>購物金</th>
-	                <th>身型</th>
-	                <th>出貨前通知</th>
-	                <th>電話</th>
-	                <th>備註</th>
-	                <th>地址</th>
-	                <th>新增日期</th>   
-	                <th>更新</th>  	
+                <th>資訊</th>
+                <th>客戶ID</th>
+                <th>收件人</th>
+                <th>客戶來源</th>
+                <th>接單客戶</th>
+                <th>運費方案</th>
+                <th>購物金</th>
+                <th>身型</th>
+                <th>出貨前通知</th>
+                <th>電話</th>
+                <th>地址</th>
+                <th>備註</th>
+                <th>新增日期</th>   
+                <th>更新</th>  	
             	</tr>
         	</thead>
 		</table>
@@ -146,12 +146,18 @@
       <form id="updateForm">
            <input type="hidden" class="form-control" id="updateCustomerId" name="customerId">
 		  
-		   <div class="form-group control-label col-sm-3">
+		   <div class="form-group control-label col-sm-2">
                 <label for="name">收件人:</label>
                 <input type="text" class="form-control" id="updateName" name="name">
            </div>
             
-           <div class="form-group control-label col-sm-3">
+                       
+           <div class="form-group control-label col-sm-2">
+                <label for="bodyType">身型:</label>
+                    <input type="text" class="form-control" id="updateBodyType" name="bodyType">    
+           </div>  
+            
+           <div class="form-group control-label col-sm-2">
                <label  for="customerSource">客戶來源:</label>
                <select class="form-control" id="updateCustomerSource" name="customerSource">
                    <option value="FB">FB</option>
@@ -160,29 +166,24 @@
                    <option value="電話">電話</option>  
                </select>
            </div>
-               
-           <div class="form-group control-label col-sm-3">
-                <label for="blockList">客戶狀態:</label>
-                <select class="form-control" id="updateBlockList" name="blockList">
-                    <option value="1">接單客戶</option>
-                    <option value="0">不接單客戶</option>
-               	</select>
-            </div>
-            
-            <div class="form-group control-label col-sm-3">
+           
+           <div class="form-group control-label col-sm-2">
                 <label for="deliveryType">運費方案:</label>
                     <select class="form-control" id="updateDeliveryType" name="deliveryType">
                     <option value="依本館規則">依本館規則</option>
                     <option value="完全免運">完全免運</option>
                 </select>
             </div>
-            
-            <div class="form-group control-label col-sm-4">
-                <label for="bodyType">身型:</label>
-                    <input type="text" class="form-control" id="updateBodyType" name="bodyType">    
-            </div> 
+               
+           <div class="form-group control-label col-sm-2">
+                <label for="blockList">客戶狀態:</label>
+                <select class="form-control" id="updateBlockList" name="blockList">
+                    <option value="1">接單客戶</option>
+                    <option value="0">不接單客戶</option>
+               	</select>
+            </div>
                        
-            <div class="form-group control-label col-sm-4">
+            <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
                     <select class="form-control" id="updateNoticeType" name="noticeType">
                     <option value="Line">Line</option>
@@ -191,19 +192,19 @@
                 </select>
             </div>
             
-            <div class="form-group control-label col-sm-4">
+            <div class="form-group control-label col-sm-3">
                 <label for="phone">電話:</label>
                     <input type="text" class="form-control" id="updatePhone" name="phone">    
             </div>
             
-            <div class="form-group control-label col-sm-12">
-                <label for="hint">備註:</label>
-                    <textarea class="form-control" rows="4" id="updateHint" name="hint"></textarea>
-            </div>
-            
-            <div class="form-group control-label col-sm-6">
+            <div class="form-group control-label col-sm-9">
                 <label for="addressFirst">地址:</label>
                     <input type="text" class="form-control" id="updateAddressFirst" name="addressFirst">
+            </div>
+            
+            <div class="form-group control-label col-sm-12">
+                <label for="hint">備註:</label>
+                    <textarea class="form-control" rows="1" id="updateHint" name="hint"></textarea>
             </div>
      
             <div class="col-sm-1">   

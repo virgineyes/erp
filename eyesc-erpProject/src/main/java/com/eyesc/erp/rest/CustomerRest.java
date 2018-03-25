@@ -21,8 +21,7 @@ public class CustomerRest {
 
 	@RequestMapping(value = "/createCustomer")
 	public String createCustomer(String customerId, String name, String customerSource, String blockList,
-			String deliveryType, String shippingMoney, String bodyType, String noticeType, String phone, String hint,
-			String addressFirst, String addressSecond) {
+			String deliveryType, String shippingMoney, String bodyType, String noticeType, String phone, String addressFirst, String hint) {
 		LOGGER.info("Create customerId: {}", customerId);
 		Customer cus = customerService.findByCustomerId(customerId);
 		Customer customer = null;
@@ -32,11 +31,7 @@ public class CustomerRest {
 			customer.setName(name);
 			customer.setCustomerSource(customerSource);
 			customer.setDeliveryType(deliveryType);
-			if ("1".equals(blockList)) {
-				customer.setBlockList("O");
-			} else {
-				customer.setBlockList("X");
-			}
+			customer.setBlockList(blockList);
 			if (shippingMoney != null && !"".equals(shippingMoney)) {
 				customer.setShippingMoney(new Integer(shippingMoney));
 			} else {
@@ -46,8 +41,8 @@ public class CustomerRest {
 			customer.setBodyType(bodyType);
 			customer.setNoticeType(noticeType);
 			customer.setPhone(phone);
-			customer.setHint(hint);
 			customer.setAddressFirst(addressFirst);
+			customer.setHint(hint);
 			customer.setCreateDate(new Date());
 
 			customerService.save(customer);
@@ -76,8 +71,7 @@ public class CustomerRest {
 
 	@RequestMapping(value = "/updateCustomer")
 	public Customer updateCustomer(String customerId, String name, String customerSource, String blockList,
-			String deliveryType, String bodyType, String noticeType, String phone, String hint, String addressFirst,
-			String addressSecond) {
+			String deliveryType, String bodyType, String noticeType, String phone, String addressFirst, String hint) {
 		LOGGER.info("Update customerId: {}", customerId);
 		Customer customer = customerService.findByCustomerId(customerId);
 		String newCustomerId = customerId.substring(0, customerId.length() - 5)
@@ -86,16 +80,12 @@ public class CustomerRest {
 		customer.setName(name);
 		customer.setCustomerSource(customerSource);
 		customer.setDeliveryType(deliveryType);
-		if ("1".equals(blockList)) {
-			customer.setBlockList("O");
-		} else {
-			customer.setBlockList("X");
-		}
+	    customer.setBlockList(blockList);
 		customer.setBodyType(bodyType);
 		customer.setNoticeType(noticeType);
 		customer.setPhone(phone);
-		customer.setHint(hint);
 		customer.setAddressFirst(addressFirst);
+		customer.setHint(hint);
 		customer.setCreateDate(new Date());
 		customerService.save(customer);
 		return null;

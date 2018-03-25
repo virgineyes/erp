@@ -48,11 +48,11 @@ public class Customer implements Serializable {
     @Column(name = "PHONE")
     private String phone;    
 
-    @Column(name = "HINT")
-    private String hint;
-
     @Column(name = "ADDRESS_1")
     private String addressFirst;
+    
+    @Column(name = "HINT")
+    private String hint;
     
     @Column(name = "CREATE_DATE")
     private Date createDate;
@@ -146,20 +146,20 @@ public class Customer implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getHint() {
-		return hint;
-	}
-
-	public void setHint(String hint) {
-		this.hint = hint;
-	}
-
 	public String getAddressFirst() {
 		return addressFirst;
 	}
 
 	public void setAddressFirst(String addressFirst) {
 		this.addressFirst = addressFirst;
+	}
+	
+	public String getHint() {
+		return hint;
+	}
+
+	public void setHint(String hint) {
+		this.hint = hint;
 	}
 	
 	public Date getCreateDate() {

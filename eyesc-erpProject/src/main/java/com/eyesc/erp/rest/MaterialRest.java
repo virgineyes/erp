@@ -58,8 +58,11 @@ public class MaterialRest {
 	@RequestMapping(value = "/updateMaterial")
 	public String updateMaterial(String materialId, String updatePrice, String date) throws ParseException {
 		LOGGER.info("Update materialId: {}", materialId);
+		System.out.println(date);
 		Material material = materialService.findByMaterialId(materialId);
 		material.setUpdatePrice(Integer.valueOf(updatePrice));
+		Date d = new SimpleDateFormat("yyyyMMdd").parse(date);
+		System.out.print(d);
 		material.setDate(new SimpleDateFormat("yyyyMMdd").parse(date));
 		materialService.save(material);
 		return null;
