@@ -37,7 +37,6 @@ public class CustomerRest {
 			} else {
 				customer.setShippingMoney(0);
 			}
-
 			customer.setBodyType(bodyType);
 			customer.setNoticeType(noticeType);
 			customer.setPhone(phone);

@@ -23,13 +23,13 @@
             </div>
             
            <div class="form-group control-label col-sm-2">
-               <label for="stock">已入庫/尚未入庫:</label>
-               <input type="text" class="form-control" id="stock" name="stock" disabled>
+               <label for="storage">已入庫/尚未入庫:</label>
+               <input type="text" class="form-control" id="storage" name="storage" disabled>
            </div>
             
            <div class="form-group control-label col-sm-2">
-               <label  for="season">夏/冬/不分季:</label>
-               <select class="form-control" id="season" name="season">
+               <label  for="weather">夏/冬/不分季:</label>
+               <select class="form-control" id="weather" name="weather">
                    <option value="夏">夏</option>
                    <option value="冬">冬</option>
                    <option value="不分季">不分季</option>
@@ -42,8 +42,8 @@
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="waistCircumference">腰圍W:</label>
-                    <input type="text" class="form-control" id="waistCircumference" name="waistCircumference">    
+                <label for="waist">腰圍W:</label>
+                    <input type="text" class="form-control" id="waist" name="waist">    
             </div>
             
              <div class="form-group control-label col-sm-2">
@@ -52,18 +52,18 @@
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="lengthClothing">衣長L:</label>
-                    <input type="text" class="form-control" id="lengthClothing" name="lengthClothing">    
+                <label for="clothLength">衣長L:</label>
+                    <input type="text" class="form-control" id="clothLength" name="clothLength">    
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="markingShoeSize">標示鞋碼:</label>
-                    <input type="text" class="form-control" id="markingShoeSize" name="markingShoeSize">    
+                <label for="shoesSize">標示鞋碼:</label>
+                    <input type="text" class="form-control" id="shoesSize" name="shoesSize">    
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="realShoeSize">實際鞋碼:</label>
-                    <input type="text" class="form-control" id="realShoeSize" name="realShoeSize">    
+                <label for="realShoesSize">實際鞋碼:</label>
+                    <input type="text" class="form-control" id="realShoesSize" name="realShoesSize">    
             </div>
             
             <div class="form-group control-label col-sm-2">
@@ -72,38 +72,28 @@
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="stockNum">數量:</label>
-                    <input type="text" class="form-control" id="stockNum" name="stockNum" disabled>    
+                <label for="count">數量:</label>
+                    <input type="text" class="form-control" id="count" name="count" disabled>    
             </div>
-            
-            <div class="form-group control-label col-sm-2">
-                <label for="outStockNum">出庫數量:</label>
-                    <input type="text" class="form-control" id="outStockNum" name="outStockNum">    
-            </div>
-            
+
             <div class="form-group control-label col-sm-2">
                 <label for="price">價格:</label>
                     <input type="text" class="form-control" id="price" name="price" disabled>    
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="stock25OffPrice">75折:</label>
+                <label for="25OffPrice">75折:</label>
                     <input type="text" class="form-control" id="stock25OffPrice" name="stock25OffPrice" disabled>    
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="stockPrice">出清價:</label>
-                    <input type="text" class="form-control" id="stockPrice" name="stockPrice" disabled>    
+                <label for="clearance">出清價:</label>
+                    <input type="text" class="form-control" id="clearance" name="clearance" disabled>    
             </div>
             
-            <div class="form-group control-label col-sm-2" style="display: none">
-                <label for="inStockEmployee">入庫工作人員:</label>
+            <div class="form-group control-label col-sm-2">
+                <label for="employeeId">入庫人員:</label>
                     <input type="text" class="form-control" id="inStockEmployee" name="inStockEmployee">    
-            </div>
-            
-            <div class="form-group control-label col-sm-2" style="display: none">
-                <label for="outStockEmployee">出庫工作人員:</label>
-                    <input type="text" class="form-control" id="outStockEmployee" name="outStockEmployee" >    
             </div>
             
             <div class="form-group control-label col-sm-12">

@@ -18,6 +18,7 @@
         <h2>客戶資料表</h2>
         <br>
         <form id="customerForm">
+        	   <div class="col-sm-12">
            <div class="form-group control-label col-sm-3">
                <label for="customerId">FB/Line/網站名+電話末五碼(客戶ID):</label>
                <input type="text" class="form-control" id="customerId" name="customerId">
@@ -68,7 +69,9 @@
                     <option>電話</option>             
                 </select>
             </div>
+            </div>
             
+            <div class="col-sm-12">
             <div class="form-group control-label col-sm-3">
                 <label for="shippingMoney">購物金:</label>
                     <input type="text" class="form-control" id="shippingMoney" name="shippingMoney">    
@@ -83,10 +86,13 @@
                 <label for="phone">電話:</label>
                     <input type="text" class="form-control" id="phone" name="phone">    
             </div>
+            </div>
             
+            <div class="col-sm-12">
             <div class="form-group control-label col-sm-12">
                 <label for="hint">備註:</label>
                     <textarea class="form-control" rows="1" id="hint" name="hint"></textarea>
+            </div>
             </div>
    
             <div class="col-sm-12">   
@@ -99,8 +105,8 @@
     
 	<div class="container" id="newCustomer" style="display:none">
    	 	<table id="newCustomerTable"> </table>
-    	<button id="deleteNewCustomer" type="button" onclick="" class="btn btn-warning">刪除新增客戶</button> 
-    	<button id="confirmNewCustomer" type="button" class="btn btn-primary">確認新增客戶</button> 
+   	 	<button id="deleteNewCustomer" type="button" onclick="" class="btn btn-warning">刪除新增客戶</button> 
+   	 	<button id="confirmNewCustomer" type="button" class="btn btn-primary">確認新增客戶</button> 
 	</div>
 
 	<br/>

@@ -151,17 +151,18 @@ $().ready(function(){
 			     },
 			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
 			     scrollX: true,
+			     autoWidth: false,
 			     columnDefs: [ {
 			    	 		targets: -1,
 			    	 		data: null,
 			    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>更新</button>"
 			     	},{		            
-		                targets:0,
+		                targets: 0,
 		                orderable:false,
 		                data:null,
 		                defaultContent: "<button class='btn btn-info' id='openData'>開關</button>"
 		            },{
-	                    targets: [10],
+	                    targets: 10,
 	                    visible: false
 	            }]
 			});

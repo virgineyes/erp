@@ -18,14 +18,15 @@
     	<br>
         <h2>客戶互動紀錄表</h2>
         <br>
-        <form id="orderForm">         
+        <form id="orderForm">
+        		<div class="col-sm-12">
             <div class="form-group control-label col-sm-3">
                 <label for="customerId">FB/Line/網站名+電話末五碼:</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="customerId" name = "customerId">
-                    <span class="input-group-btn">
+     				  <div class="input-group-btn">
                         <button class="btn btn-primary" type="button" onclick="getCustomer()">帶入舊客戶</button>
-                    </span>
+               		 </div>
                 </div> 
             </div>
             
@@ -50,8 +51,8 @@
             </div>
             
             	<div class="form-group control-label col-sm-2">
-                <label for="delivery">運費方案:</label>
-                    <select class="form-control" id="delivery" name="delivery">
+                <label for="deliveryType">運費方案:</label>
+                    <select class="form-control" id="deliveryType" name="deliveryType">
                     <option>本島運費60</option>
                     <option>外島運費200</option>
                     <option>完全免運</option>
@@ -61,16 +62,18 @@
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="payment">匯款/貨到付款:</label>
-                    <select class="form-control" id="payment" name="payment">
+                <label for="paymentTerm">匯款/貨到付款:</label>
+                    <select class="form-control" id="paymentTerm" name="paymentTerm">
                     <option>貨到付款</option>
                     <option>匯款</option>
                 </select>
             </div>
+            </div>
             
+            <div class="col-sm-12">
             <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
-                    <select class="form-control" id="deliveryType" name="noticeType">
+                    <select class="form-control" id="noticeType" name="noticeType">
                     <option>不通知</option>
                     <option>簡訊</option>
                     <option>電話</option>
@@ -91,9 +94,11 @@
                 <label for="addressSecond">地址2(限定此單):</label>
                 <input type="text" class="form-control" id="addressSecond" name = "addressSecond">
             </div>
+            </div>
                       
-            <input type="hidden" class="form-control" id="stockId" name="stockId">
+            <input type="hidden" class="form-control" id="stockId0" name="stockId0">
             
+            <div class="col-sm-12">
             <div class="form-group control-label col-sm-2">
                 <label for="materialId">貨號:</label>
                     <div class="input-group">
@@ -140,33 +145,29 @@
                     <option>客戶不下單</option>
                 </select>
             </div>
-            
-            <div class="form-group control-label col-sm-1">
-                <label for="employee">工作人員:</label>
-                    <input type="text" class="form-control" id="employee0" name="employee" disabled>    
-                </div>
-            
-            
-            <div class="form-group control-label col-sm-1">
-                <label for="orderComplete">完成:</label>
-                    <select class="form-control" id="orderComplete0" name="orderComplete" disabled >
-                    <option >N</option>
-                    <option>Y</option>
-                </select>
+ 
+            <input type="text" class="form-control" id="employee0" style="display:none">    
+                
+            <div class="form-group control-label col-sm-2">
+                <label for="price">價格:</label>
+                    <input type="text" class="form-control" id="price0" name="price">    
+            </div>
             </div>
             
-             <div class="col-sm-1" id ="addNewMaterialId">   
+            <div class="col-sm-1" id ="addNewMaterialId">   
                 <button type="button" onclick="addMaterialIdBtn()" class="btn btn-warning" >新增貨號</button>
             </div>
             <div class="col-sm-2" style="display:none" id ="deleteAddMaterialIdBtn">   
                 <button type="button" onclick="deleteAddMaterialIdBtn()" class="btn btn-danger" >刪除新增貨號</button>
             </div>
-             <div class="col-sm-7">   
+             <div class="col-sm-8">   
                 <button type="submit" class="btn btn-primary">送出訂單</button>
             </div>
+            <!-- 
             <div class="col-sm-1" >   
                 <button type="button" onclick="getdata()" class="btn btn-danger" style="display:none">獲得資料</button>
             </div>
+            -->
             
         </form>    
     </div>  
@@ -174,9 +175,9 @@
    	<br/>
     
 	<div class="container" id="newOrder" style="display:none">
-   	 	<table id="newCustomerTable"> </table>
-    	<button id="deleteNewCustomer" type="button" onclick="" class="btn btn-warning">刪除新增訂單</button> 
-    	<button id="confirmNewCustomer" type="button" class="btn btn-primary">確認新增訂單</button> 
+   	 	<table id="newOrderTable"> </table>
+    		<button id="deleteNewOrder" type="button" onclick="" class="btn btn-warning">刪除新增訂單</button> 
+   	 	<button id="confirmNewOrder" type="button" class="btn btn-primary">確認新增訂單</button> 
 	</div>
 	
 	<br/>
