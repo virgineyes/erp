@@ -59,7 +59,7 @@ public class CustomerRest {
 	@RequestMapping(value = "/searchCustomer")
 	public List<Customer> searchCustomer(String customerId) {
 		LOGGER.info("Search customerId: {}", customerId);
-		return customerService.findByCustomerIdList(customerId);
+		return customerService.findByCustomerIdIgnoreCaseContaining(customerId);
 	}
 
 	@RequestMapping(value = "/searchOneCustomer")
@@ -68,6 +68,12 @@ public class CustomerRest {
 		return customerService.findByCustomerId(customerId);
 	}
 
+	@RequestMapping(value = "/searchCustomerEnding")
+	public List<Customer> searchCustomerEnding(String customerId) {
+		LOGGER.info("Search One customerId: {}", customerId);
+		return customerService.findByCustomerIdEndingWith(customerId);
+	}	
+	
 	@RequestMapping(value = "/updateCustomer")
 	public Customer updateCustomer(String customerId, String name, String customerSource, String blockList,
 			String deliveryType, String bodyType, String noticeType, String phone, String addressFirst, String hint) {

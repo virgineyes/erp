@@ -12,4 +12,6 @@ public interface CustomerDao extends JpaRepository<Customer, Long> {
 	 public Customer findByCustomerId(String customerId);
 	 
 	 public List<Customer> findByCustomerIdIgnoreCaseContaining(String customerId);
+	 
+	 public List<Customer> findByCustomerIdEndingWith(String customerId);
 }

@@ -47,7 +47,7 @@
 	
     <div class="container">
       <form class="form-inline"> 
-          <label for="queryMaterail" style="margin:5px 5px 5px 5px;">收尋 (貨號):</label>
+          <label for="queryMaterail" style="margin:5px 5px 5px 5px;"></label>
           <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryMaterialId" name="queryMaterail">    
           <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterial" class="btn btn-success">搜尋貨號</button>
       </form>
@@ -61,12 +61,12 @@
 		<table id="queryMaterialTable" class="table table-striped table-bordered"> 
 	       <thead>
             	<tr>
-	                <th>貨號</th>
-	                <th>衣服名稱</th>
-	                <th>價格</th>
-	                <th>更新價格</th>
-	                <th>更新日期</th>
-	                <th>更新</th>	
+		      <th>貨號</th>
+              <th>衣服名稱</th>
+              <th>價格</th>
+              <th>更新價格</th>
+              <th>更新日期</th>
+               <th>更新</th>	
             	</tr>
         	</thead>
 		</table>

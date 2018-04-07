@@ -7,6 +7,7 @@
   		<title>客戶互動紀錄表</title>
 		<%@ include file="header.jsp" %>
 		<script src="public/js/order.js"></script>
+		<script src="public/js/3part/checkbox.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	</head>
 	    
@@ -25,10 +26,11 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="customerId" name = "customerId">
      				  <div class="input-group-btn">
-                        <button class="btn btn-primary" type="button" onclick="getCustomer()">帶入舊客戶</button>
+                        <button class="btn btn-primary" type="button" onclick="getCustomer()">輸入末五碼</button>
                		 </div>
                 </div> 
             </div>
+             
             
             <div class="form-group control-label col-sm-2">
                 <label for="name">收件人:</label>
@@ -43,21 +45,21 @@
             <div class="form-group control-label col-sm-2">
                 <label  for="customerSource">客戶來源:</label>
                     <select class="form-control" id="customerSource" name = "customerSource">
-                    <option>Line</option>
-                    <option>FB</option>
-                    <option>網站</option>
-                    <option>電話</option>
+                    <option value="Line">Line</option>
+                    <option value="FB">FB</option>
+                    <option value="網站">網站</option>
+                    <option value="電話">電話</option>
                 </select>
             </div>
             
             	<div class="form-group control-label col-sm-2">
                 <label for="deliveryType">運費方案:</label>
                     <select class="form-control" id="deliveryType" name="deliveryType">
-                    <option>本島運費60</option>
-                    <option>外島運費200</option>
-                    <option>完全免運</option>
-                    <option>三件或滿2000免運</option>
-                    <option>來貨問題新單免運</option>
+                    <option value="本島運費60">本島運費60</option>
+                    <option value="外島運費200">外島運費200</option>
+                    <option value="完全免運">完全免運</option>
+                    <option value="三件或滿2000免運">三件或滿2000免運</option>
+                    <option value="來貨問題新單免運">來貨問題新單免運</option>
                 </select>
             </div>
             
@@ -74,10 +76,10 @@
             <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
                     <select class="form-control" id="noticeType" name="noticeType">
-                    <option>不通知</option>
-                    <option>簡訊</option>
-                    <option>電話</option>
-                    <option>LINE</option>
+                    <option value="不通知">不通知</option>
+                    <option value="Line">LINE</option>
+                    <option value="簡訊">簡訊</option>
+                    <option value="電話">電話</option>
                 </select>
             </div>
             
@@ -99,17 +101,25 @@
             <input type="hidden" class="form-control" id="stockId0" name="stockId0">
             
             <div class="col-sm-12">
-            <div class="form-group control-label col-sm-2">
+            <div class="form-group control-label col-sm-3">
                 <label for="materialId">貨號:</label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="materialId0" name = "materialId">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" onclick="getStock()">庫存</button>
+                        <button class="btn btn-primary" type="button" onclick="getStock(0)">庫存</button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" onclick="getMaterialId(0)">貨號</button>
                     </span>
                 </div> 
             </div>
             
-             <div class="form-group control-label col-sm-1">
+            <div class="form-group control-label col-sm-1">
+                <label for="price">價格:</label>
+                    <input type="text" class="form-control" id="price0" name="price" disabled>
+            </div>
+            
+            <div class="form-group control-label col-sm-1">
                 <label for="cutSize">剪標尺碼:</label>
                     <input type="text" class="form-control" id="cutSize0" name="cutSize">
             </div>
@@ -130,28 +140,23 @@
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="priceType">出清/現貨原價</label>
+                <label for="priceType">出清/原價</label>
                     <select class="form-control" id="priceType0" name="priceType"  disabled>
-                    <option>現貨原價</option>
+                    <option>原價</option>
                     <option>出清</option>  
                 </select>
             </div>
             
             <div class="form-group control-label col-sm-2">
-                <label for="confirm">客戶下單/不下單:</label>
+                <label for="confirm">下單/不下單:</label>
                     <select class="form-control" id="confirm0" name="confirm">
                     <option>待確認</option>
-                    <option>客戶下單</option>
-                    <option>客戶不下單</option>
+                    <option>下單</option>
+                    <option>不下單</option>
                 </select>
             </div>
  
             <input type="text" class="form-control" id="employee0" style="display:none">    
-                
-            <div class="form-group control-label col-sm-2">
-                <label for="price">價格:</label>
-                    <input type="text" class="form-control" id="price0" name="price">    
-            </div>
             </div>
             
             <div class="col-sm-1" id ="addNewMaterialId">   
@@ -162,13 +167,7 @@
             </div>
              <div class="col-sm-8">   
                 <button type="submit" class="btn btn-primary">送出訂單</button>
-            </div>
-            <!-- 
-            <div class="col-sm-1" >   
-                <button type="button" onclick="getdata()" class="btn btn-danger" style="display:none">獲得資料</button>
-            </div>
-            -->
-            
+            </div>            
         </form>    
     </div>  
     
@@ -184,9 +183,9 @@
 
     <div class="container">
       <form class="form-inline"> 
-          <label for="queryOrder" style="margin:5px 5px 5px 5px;">收尋 (訂單):</label>
+          <label for="queryOrder" style="margin:5px 5px 5px 5px;">搜尋訂單:</label>
           <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryOrderId" name="queryOrderId">    
-          <button type="button" style="margin:5px 5px 5px 5px;" id="queryOrder" class="btn btn-success">搜尋客戶</button>
+          <button type="button" style="margin:5px 5px 5px 5px;" id="queryOrder" class="btn btn-success">輸入末五碼</button>
       </form>
     </div>
     
@@ -198,5 +197,7 @@
 		<table id="queryList" class="display" style="visibility:hidden"> </table>
 	</div>
     
+    	
+    <%@ include file="insertCustomerBootbox.jsp" %>
 </body>
 </html>

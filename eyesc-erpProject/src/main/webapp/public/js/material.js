@@ -148,7 +148,7 @@ $().ready(function(){
 					        label: "押更新價格",
 					        className: 'btn-info',
 					        callback: function(){
-					        	showUpdateMaterial(data[0]);
+					        		showUpdateMaterial(data[0]);
 					        }
 					    }
 					}
@@ -209,7 +209,6 @@ var showUpdateMaterial = function(materialId) {
           modal.modal("hide");
         }
     });
-    
     modal.modal("show");
 }
 

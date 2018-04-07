@@ -85,9 +85,8 @@ $().ready(function(){
 							data : customerId,
 							type : "POST",
 						}).done(function(returnData) {
-							console.log(returnData);
+							console.log('inner')
 							if (returnData == null || returnData == '') {
-								var customerColumn = column;
 								$("#newCustomer").show();
 								$("button#deleteNewCustomer").attr("onclick","reload()");
 								$("button#confirmNewCustomer").attr("onclick","createCustomer()");
@@ -95,10 +94,8 @@ $().ready(function(){
 								var newCustomer = [];
 								newCustomer[0] = data;		
 								
-								console.log(data);
-								
 								$('#newCustomerTable').bootstrapTable({
-							        columns : customerColumn,
+							        columns : column,
 							        striped : true,
 							        cache : false,
 							        showColumns: false,
@@ -138,8 +135,6 @@ $().ready(function(){
 			}
 
 			$("#queryCustomerTableContainer").show();
-			
-			console.log(dataSet);
 		
 			var table = $('#queryCustomerTable').DataTable({
 				 destroy: true,
@@ -188,7 +183,6 @@ $().ready(function(){
 			
 			$('#queryCustomerTable tbody').on( 'click', 'button#updateButton', function () {
 				var data = table.row( $(this).parents('tr') ).data();
-				console.log(data);
 				bootbox.dialog({
 					title: '修改或刪除客戶資料',
 					message: "<p>請選「修改」或「刪除」</p>",
@@ -208,7 +202,6 @@ $().ready(function(){
 					        label: "修改客戶資料",
 					        className: 'btn-info',
 					        callback: function() {
-					        		console.log('update');
 					        		showUpdateCustomer(data);
 					        }
 					    }
@@ -253,11 +246,18 @@ $().ready(function(){
 			}
 		},
 		submitHandler: function(form) {
+			  var blockList;
+			  if ($('select#blockList').val() == 1) {
+				  blockList = 'O';
+			  } else {
+				  blockList = 'X';
+			  }	
+			
 			  data = {
 					  customerId: $('input#updateCustomerId').val(),
 					  name: $('input#updateName').val(),
 					  customerSource: $('select#updateCustomerSource').val(),
-					  blockList: $('select#updateBlockList').val(),
+					  blockList: blockList,
 					  deliveryType: $('select#updateDeliveryType').val(),
 					  bodyType: $('input#updateBodyType').val(),
 					  noticeType: $('select#updateNoticeType').val(),
@@ -266,7 +266,6 @@ $().ready(function(){
 					  addressFirst: $('input#updateAddressFirst').val(),
 					  addressSecond: $('input#updateAddressSecond').val(),
 		      };  
-			  console.log(data);
 			  
 			  bootbox.confirm('確認跟新客戶', function(isConfirmed) {
 			      if (isConfirmed) {

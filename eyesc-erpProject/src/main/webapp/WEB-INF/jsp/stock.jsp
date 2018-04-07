@@ -123,7 +123,7 @@
   
     <div class="container">
       <form class="form-inline"> 
-          <label for="queryMaterialId" style="margin:5px 5px 5px 5px;">搜尋:</label>
+          <label for="queryMaterialId" style="margin:5px 5px 5px 5px;"></label>
           <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryMaterialId" name="queryMaterialId">    
           <button type="button" style="margin:5px 5px 5px 5px;" id="queryMaterialId" class="btn btn-success">搜尋庫存</button>
       </form>

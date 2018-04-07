@@ -64,6 +64,7 @@
             <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
                     <select class="form-control" id="noticeType" name="noticeType">
+                    <option>不通知</option>
                     <option>Line</option>
                     <option>簡訊</option>
                     <option>電話</option>             
@@ -113,7 +114,7 @@
 
     <div class="container">
       <form class="form-inline"> 
-          <label for="queryCustomer" style="margin:5px 5px 5px 5px;">搜尋:</label>
+          <label for="queryCustomer" style="margin:5px 5px 5px 5px;"></label>
           <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryCustomerId" name="queryCustomerId">    
           <button type="button" style="margin:5px 5px 5px 5px;" id="queryCustomer" class="btn btn-success">搜尋客戶</button>
       </form>
@@ -192,6 +193,7 @@
             <div class="form-group control-label col-sm-2">
                 <label for="noticeType">出貨前通知:</label>
                     <select class="form-control" id="updateNoticeType" name="noticeType">
+                    <option value="不通知">不通知</option>
                     <option value="Line">Line</option>
                     <option value="簡訊">簡訊</option>
                     <option value="電話">電話</option>             

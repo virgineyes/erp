@@ -30,9 +30,13 @@ public class CustomerService {
 		return customerDao.findByCustomerId(customerId);
 	}  
 	
-	public List<Customer> findByCustomerIdList(String customerId) {
+	public List<Customer> findByCustomerIdIgnoreCaseContaining(String customerId) {
 		return customerDao.findByCustomerIdIgnoreCaseContaining(customerId);
 	}  
+	
+	public List<Customer> findByCustomerIdEndingWith(String customerId) {
+		return customerDao.findByCustomerIdEndingWith(customerId);
+	}
 	
 	public List<Customer> findAll() {
 		return customerDao.findAll();
