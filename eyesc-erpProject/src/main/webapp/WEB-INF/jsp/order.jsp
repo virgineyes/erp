@@ -16,7 +16,7 @@
     
     <div class="container">
        	<br>
-    	<br>
+    		<br>
         <h2>客戶互動紀錄表</h2>
         <br>
         <form id="orderForm">
@@ -159,14 +159,16 @@
             <input type="text" class="form-control" id="employee0" style="display:none">    
             </div>
             
-            <div class="col-sm-1" id ="addNewMaterialId">   
-                <button type="button" onclick="addMaterialIdBtn()" class="btn btn-warning" >新增貨號</button>
+            <div class="col-sm-12">
+	            <div class="col-sm-1" id ="addNewMaterialId">   
+	                <button type="button" onclick="addMaterialIdBtn()" class="btn btn-warning" >新增貨號</button>
+	            </div>
+	            <div class="col-sm-1" style="display:none" id ="deleteAddMaterialIdBtn">   
+	                <button type="button" onclick="deleteAddMaterialIdBtn()" class="btn btn-danger" >刪除新增貨號</button>
+	            </div>
             </div>
-            <div class="col-sm-2" style="display:none" id ="deleteAddMaterialIdBtn">   
-                <button type="button" onclick="deleteAddMaterialIdBtn()" class="btn btn-danger" >刪除新增貨號</button>
-            </div>
-             <div class="col-sm-8">   
-                <button type="submit" class="btn btn-primary">送出訂單</button>
+             <div class="col-sm-12" align="right">   
+                <button type="submit" class="btn btn-primary" >送出訂單</button>
             </div>            
         </form>    
     </div>  
@@ -182,11 +184,9 @@
 	<br/>
 
     <div class="container">
-      <form class="form-inline"> 
-          <label for="queryOrder" style="margin:5px 5px 5px 5px;">搜尋訂單:</label>
-          <input type="text" style="margin:5px 5px 5px 5px;" class="form-control" id="queryOrderId" name="queryOrderId">    
-          <button type="button" style="margin:5px 5px 5px 5px;" id="queryOrder" class="btn btn-success">輸入末五碼</button>
-      </form>
+  	  <div class="col-sm-12">
+          <button type="button" onclick="searchOrder()" class="btn btn-primary">搜尋待確認訂單</button>
+      </div>
     </div>
     
     <div>

@@ -29,7 +29,7 @@
 			class="btn btn-primary">確認新增</button>
 	</div>
 	
-	<div class="container col-sm-4 col-sm-offset-2">
+	<div class="container col-sm-12 col-sm-offset-1">
 		<form class="form-inline">
 			<button type="button" style="margin: 5px 5px -35px 5px"
 				id="saleOrderBtn" class="btn btn-success" disabled>下單</button>
@@ -37,6 +37,9 @@
 				style="margin: 5px 5px -35px 5px" disabled>到貨/銷單/不出貨</button>
 		</form>
 	</div>
+	<br>
+	<br>
+	<br>
 	
 	<div class="container" id="querySalesOrderTableContainer"
 		style="display: none">

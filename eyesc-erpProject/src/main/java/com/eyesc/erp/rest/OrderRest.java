@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eyesc.erp.model.bean.Customer;
 import com.eyesc.erp.model.bean.Order;
 import com.eyesc.erp.model.bean.OrderVo;
 import com.eyesc.erp.model.bean.StockVo;
@@ -66,6 +68,14 @@ public class OrderRest {
 			}
 		}
 	}
+	
+	@RequestMapping(value = "/searchOrder")
+	public List<Order> searchCustomer() {
+		LOGGER.info("Search customerId {}", "AA");
+		System.out.println("testing");
+		return null;
+	}
+
 	
 	private Date tranferDate(LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());

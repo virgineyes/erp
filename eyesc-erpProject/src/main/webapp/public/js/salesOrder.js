@@ -1,5 +1,5 @@
 /**
- * 
+ * @author eyes
  */
 
 //刪除array裡的特定元素,所創建的function
@@ -75,18 +75,25 @@ $().ready(function(){
 				if($(this).prop("checked")){
 					saleOrderArray.push(data);
 					$('button#saleOrderBtn').attr('disabled', false);
-					if(data[9] != ""){$('button#cancleBtn').attr('disabled', false);}else{$('button#cancleBtn').attr('disabled', true)};
+					if(data[9] != "") {
+						$('button#cancleBtn').attr('disabled', false);
+					} else { 
+						$('button#cancleBtn').attr('disabled', true)
+					}
 					console.log(saleOrderArray);
-				}else{
+				} else {
 					saleOrderArray.remove(data);
-					if(saleOrderArray == [] || saleOrderArray == ""){$('button#saleOrderBtn').attr('disabled', true);$('button#cancleBtn').attr('disabled', true)};
+					if(saleOrderArray == [] || saleOrderArray == "") {
+						$('button#saleOrderBtn').attr('disabled', true);
+						$('button#cancleBtn').attr('disabled', true)
+					}
 					console.log(saleOrderArray);
-				};
+				}
 			});
 			
 			var saleData = [];
 			$("button#saleOrderBtn").on('click', function(){
-				for(var i = 0; i < saleOrderArray.length; i++ ){
+				for(var i = 0; i < saleOrderArray.length; i++) {
 					saleData[i] = saleOrderArray[i];
 					console.log(saleData);
 				}

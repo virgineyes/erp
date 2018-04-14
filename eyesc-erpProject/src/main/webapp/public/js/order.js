@@ -21,7 +21,7 @@ var addMaterialIdBtn = function() {
 	var priceType = '<div class="form-group control-label col-sm-2"><label for="priceType">出清/現貨原價</label><select class="form-control" id=priceType' + addMaterialIdcount + " " +  'name="priceType"  disabled><option>現貨原價</option><option>出清</option></select></div>';
 	var confirm = '<div class="form-group control-label col-sm-2"><label for="confirm">客戶下單/不下單:</label><select class="form-control" id=confirm' + addMaterialIdcount + ' ' + 'name="confirm"><option>待確認</option><option>客戶下單</option><option>客戶不下單</option></select></div>';
 	var employee = '<input type="text" class="form-control" id=employee' + addMaterialIdcount + ' ' + 'name="employee" style="display:none"></div>';
-	$("#addNewMaterialId").before('<div id=addDiv' + addMaterialIdcount + ' class="col-sm-12"></div>')
+	$("#addNewMaterialId").before('<div id=addDiv' + addMaterialIdcount + '></div>')
 	$("#addDiv" + addMaterialIdcount).append(stockId, materialId, price, cutSize, cusSize, color, count, priceType, confirm, employee)
 	$("#deleteAddMaterialIdBtn").show()
 }
@@ -148,9 +148,22 @@ function getMaterialId(itemNumber){
 		});
 }
 
-var insertCustomer = function() {
-	console.log('inner');
-	console.log($('.bs-checkbox').bsCheckbox());
+var getCustomerItemNum = function() {
+	return $('.bs-checkbox input:checked').attr('data-index');
+}
+
+var insertCustomer = function(data) {
+		$("#customerId").val(data.customerId);
+		$("#name").val(data.name);
+		$("#bodyType").val(data.bodyType);
+		$("#customerSource").val(data.customerSource);
+	//	$("#paymentTerm").val(data.paymentTerm);
+		if (data.deliveryType === "完全免運") {
+			$("#deliveryType").val(data.deliveryType);	
+		}
+		$("#noticeType").val(data.noticeType);
+		$("#phone").val(data.phone);
+		$("#addressFirst").val(data.addressFirst);	
 }
 
 var getCustomer = function() {
@@ -165,7 +178,7 @@ var getCustomer = function() {
 				type : "POST",
 			}).done(function(returnData) { 
 				if (returnData != null && returnData != '') {
-					console.log(returnData);
+//					console.log(returnData);
 					$('#insertCustomerTable').bootstrapTable({
 						columns : [{
 						    title: '選擇',
@@ -204,8 +217,9 @@ var getCustomer = function() {
 						    ok: {
 						        label: "帶入客戶",
 						        className: 'btn-info',
-						        callback: function(){
-						        		insertCustomer();
+						        callback: function() {
+						        		console.log(returnData[getCustomerItemNum()]);
+						        		insertCustomer(returnData[getCustomerItemNum()]);
 						        }
 						    }
 						},
@@ -215,21 +229,6 @@ var getCustomer = function() {
 					    }
 					});
 					modal.modal("show");
-					
-//					if (returnData.blockList === 'O') {
-//						$("#name").val(returnData.name);
-//						$("#bodyType").val(returnData.bodyType);
-//						$("#customerSource").val(returnData.customerSource);
-////						$("#paymentTerm").val(returnData.paymentTerm);
-//						if (returnData.deliveryType === "完全免運") {
-//							$("#deliveryType").val(returnData.deliveryType);	
-//						}
-//						$("#noticeType").val(returnData.noticeType);
-//						$("#phone").val(returnData.phone);
-//						$("#addressFirst").val(returnData.addressFirst);	
-//					} else {
-//						bootbox.alert("<h3 style='color:red'>此客戶為不接單客戶</h3>");
-//					}
 				} else {
 					bootbox.alert("<h3 style='color:blue'>不存在此客戶！請自行輸入</h4>");
 				}
@@ -270,22 +269,6 @@ $().ready(function(){
 				required: true,
 				addressValidation : true,
 			}
-//			materialId:{
-//				required: true,
-//			},
-//			cutSize:{
-//				required: true,
-//			},
-//			cusSize:{
-//				required: true,
-//			},
-//			color:{
-//				required: true,
-//			},
-//			count:{
-//				required: true,
-//				numberValidation: true
-//			}
 		},
 		messages: {
 			customerId: {
@@ -337,19 +320,34 @@ $().ready(function(){
  });
 
 var createOrder = function() {	
-	  console.log(JSON.stringify(data));
+//	  console.log(JSON.stringify(data));
   	  $.ajax({
   		  url : "createOrder",
   		  data : JSON.stringify(data),
   		  type : "POST",
   		  dataType: "json", 
   		  contentType: "application/json; charset=utf-8",
-	  }).done(function() {
-		  	console.log('done');
+	  }).done(function(returnData) {
+    		  location.reload();
 	  }).fail(function() {
+//    			location.reload();
 		  	bootbox.alert("新增錯誤，請聯繫工程師");
 	  }).always(function() {
 		  	console.log('Complete');
+	  });
+}
+
+var searchOrder = function() {
+	  $.ajax({
+  		  url : "searchOrder",
+  		  data : null,
+  		  type : "GET",
+	  }).done(function(returnData) {
+		  console.log(returnData);
+	  }).fail(function() {
+		  bootbox.alert("新增錯誤，請聯繫工程師");
+	  }).always(function() {
+		  console.log('Complete');
 	  });
 }
 

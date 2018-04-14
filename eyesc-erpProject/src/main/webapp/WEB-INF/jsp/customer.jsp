@@ -96,8 +96,10 @@
             </div>
             </div>
    
-            <div class="col-sm-12">   
-                <button type="submit" class="btn btn-primary">新增客戶</button>
+            <div class="col-sm-12">  
+            		<div class="col-sm-12">	 
+              	  <button type="submit" class="btn btn-primary">新增客戶</button>
+                </div> 
             </div>
         </form>    
     </div>

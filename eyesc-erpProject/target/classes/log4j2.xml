@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+<Configuration monitorInterval="30">
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{ISO8601}[%p|%t|%c|%M:%L|u:%X{user}] %m%n" />
+    </Console>
+  </Appenders>
+
+  <!-- output all INFO,ERROR,FATAL to PLUZME_INFO.log -->
+
+  <Loggers>
+    <!-- Logger name="org.springframework.web.servlet" level="TRACE" additivity="false">
+        <AppenderRef ref="console"/>
+    </Logger  -->
+
+    <!-- Logger name="org.springframework.web.socket" level="debug" additivity="false">
+        <AppenderRef ref="console"/>
+    </Logger>
+        
+    <Logger name="org.springframework.messaging" level="debug" additivity="false">
+        <AppenderRef ref="console"/>
+    </Logger  -->
+
+    <!-- Logger name="org.springframework.context" level="debug" additivity="false">
+        <AppenderRef ref="console"/>
+    </Logger  -->
+    <Logger name="com.wtmec" level="debug" additivity="false">
+        <AppenderRef ref="console"/>
+    </Logger>
+
+    <!-- Logger name="org.springframework.scheduling" level="debug" additivity="false">
+        <AppenderRef ref="console"/>
+        <AppenderRef ref="rollingFile"/>
+    </Logger  -->
+   
+
+    <Root level="info">
+        <AppenderRef ref="console"/>
+    </Root>         
+  </Loggers>
+  
+</Configuration>
+

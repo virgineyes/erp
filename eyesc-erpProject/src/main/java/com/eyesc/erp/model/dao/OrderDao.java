@@ -18,7 +18,10 @@ public interface OrderDao extends JpaRepository<Order, Long> {
 	
 	public List<Order> findByConfirmDate(Date confirmDate);
 
-    @Query(value = "select * from erp.order where COMFIRM_DATE is null", nativeQuery = true)
+    @Query(value = "select * from erp.order where CONFIRM_DATE is null", nativeQuery = true)
     public List<Order> getComfirmDateIsNull();
+    
+    @Query(value = "select * from erp.order where CONFIRM='待確認'", nativeQuery = true)
+    public List<Order> getConfriml();
 
 }
