@@ -1,7 +1,6 @@
 package com.eyesc.erp.rest;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eyesc.erp.model.bean.Customer;
 import com.eyesc.erp.model.bean.Order;
 import com.eyesc.erp.model.bean.OrderVo;
 import com.eyesc.erp.model.bean.StockVo;
@@ -29,9 +27,9 @@ public class OrderRest {
 
 	@RequestMapping(value = "/createOrder")
 	public void createOrder(@RequestBody OrderVo orderVo) {
-		LOGGER.info("Create customerId: {}", orderVo);
-		LocalDate localDate = LocalDate.now();
-		String date = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		LOGGER.info("Create Order: {}", orderVo);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		String date = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd-HH:mm"));
 		for (StockVo stockVo : orderVo.getStockVos()) {
 			for (int i = 0 ; i < Integer.valueOf(stockVo.getCount()); i++) {
 				Order order = new Order();
@@ -60,10 +58,13 @@ public class OrderRest {
 				order.setPriceType(stockVo.getPriceType());
 				order.setConfirm(stockVo.getConfirm());
 				order.setEmployee(stockVo.getEmployeeId());
-				order.setOrderComplete("N");
 				order.setPrice(Integer.valueOf(stockVo.getPrice()));
-				order.setCreateDate(tranferDate(localDate));
-				order.setStatus("下單中");
+				order.setCreateDate(new Date());
+				if ("待確認".equals(stockVo.getConfirm())) {
+					order.setStatus("待確認");
+				} else {
+					order.setStatus("下單中");
+				}
 				orderService.save(order);
 			}
 		}
@@ -71,14 +72,16 @@ public class OrderRest {
 	
 	@RequestMapping(value = "/searchOrder")
 	public List<Order> searchCustomer() {
-		LOGGER.info("Search customerId {}", "AA");
-		System.out.println("testing");
-		return null;
+		return orderService.getNonConfirm();
 	}
-
 	
-	private Date tranferDate(LocalDate localDate) {
-		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	@RequestMapping(value = "/updateConfirm")
+	public void updateConfirm(String id) {
+		LOGGER.info("Update Order Confirm: id = {}", id);
+		Order order = orderService.findById(Long.valueOf(id));
+		order.setConfirm("下單");
+		order.setStatus("已下單");
+		orderService.save(order);
 	}
 	
 }

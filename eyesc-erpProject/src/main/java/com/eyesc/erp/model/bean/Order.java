@@ -76,9 +76,6 @@ public class Order implements Serializable {
     
     @Column(name = "EMPLOYEE")
     private String employee;
-    
-    @Column(name = "ORDER_COMPLETE")
-    private String orderComplete;
 
 	@Column(name = "PRICE")
     private Integer price;
@@ -259,14 +256,6 @@ public class Order implements Serializable {
 
 	public void setEmployee(String employee) {
 		this.employee = employee;
-	}
-
-	public String getOrderComplete() {
-		return orderComplete;
-	}
-
-	public void setOrderComplete(String orderComplete) {
-		this.orderComplete = orderComplete;
 	}
 	
     public Integer getPrice() {

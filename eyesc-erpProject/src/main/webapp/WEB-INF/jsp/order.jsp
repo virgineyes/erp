@@ -189,14 +189,42 @@
       </div>
     </div>
     
-    <div>
-		<br/>
-    </div>
-
-	 <div class="container">
-		<table id="queryList" class="display" style="visibility:hidden"> </table>
+	<br/>
+	
+	 <div class="container" id="queryOrderTableContainer" style="display:none">
+		<table id="queryOrderTable" class="table table-striped table-bordered"> 
+	       <thead>
+            	<tr>
+           	  <th>ID</th>
+		      <th>訂單ID</th>
+              <th>客戶ID</th>
+              <th>姓名</th>
+              <th>身形</th>
+              <th>客戶來源</th>
+              <th>運費方案</th>
+              <th>匯款/貨到付款</th>	
+              <th>出貨前通知</th>
+              <th>電話</th>
+              <th>地址1</th>
+              <th>地址2</th>
+              <th>庫存ID</th>
+              <th>貨號</th>
+              <th>剪標尺碼</th>
+              <th>客要尺碼</th>
+              <th>顏色</th>
+              <th>原價/出清</th>
+              <th>下單/不下單</th>
+              <th>下單人員</th>
+              <th>價格</th>
+              <th>訂單日</th>
+              <th>出貨日</th>
+              <th>結單日</th>
+              <th>狀態</th>
+              <th>庫存ID</th>
+            	</tr>
+        		</thead>
+		</table>
 	</div>
-    
     	
     <%@ include file="insertCustomerBootbox.jsp" %>
 </body>

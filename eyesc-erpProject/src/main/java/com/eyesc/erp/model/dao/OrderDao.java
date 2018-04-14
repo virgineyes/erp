@@ -10,18 +10,22 @@ import com.eyesc.erp.model.bean.Order;
 
 public interface OrderDao extends JpaRepository<Order, Long> {
 	
-	public Order findByOrderId(String orderId);
+	public Order findById(Long id);
+	
+	public List<Order> findByOrderId(String orderId);
 	
 	public List<Order> findByCustomerId(String customerId);
 	
 	public List<Order> findByCreateDate(Date createDate);
 	
 	public List<Order> findByConfirmDate(Date confirmDate);
+	
+	public List<Order> findByStatus(String status);
 
-    @Query(value = "select * from erp.order where CONFIRM_DATE is null", nativeQuery = true)
+    @Query(value = "select * from erp.orders where CONFIRM_DATE is null", nativeQuery = true)
     public List<Order> getComfirmDateIsNull();
     
-    @Query(value = "select * from erp.order where CONFIRM='待確認'", nativeQuery = true)
-    public List<Order> getConfriml();
+    @Query(value = "select * from erp.orders where CONFIRM='待確認'", nativeQuery = true)
+    public List<Order> getNonConfirm();
 
 }

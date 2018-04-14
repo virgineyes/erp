@@ -145,7 +145,7 @@ $().ready(function(){
 		            }
 			     },
 			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
-			     scrollX: true,
+//			     scrollX: true,
 			     autoWidth: false,
 			     columnDefs: [ {
 			    	 		targets: -1,
@@ -155,7 +155,7 @@ $().ready(function(){
 		                targets: 0,
 		                orderable:false,
 		                data:null,
-		                defaultContent: "<button class='btn btn-info' id='openData'>開關</button>"
+		                defaultContent: "<button class='btn btn-info' id='openData'>細節</button>"
 		            },{
 	                    targets: 10,
 	                    visible: false

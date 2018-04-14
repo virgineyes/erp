@@ -26,7 +26,11 @@ public class OrderService {
 		orderDao.delete(orderDao.findByOrderId(orderId));
 	}
 	
-	public Order findByOrderId(String orderId) {
+	public Order findById(Long id) {
+		return orderDao.findById(id);
+	}
+	
+	public List<Order> findByOrderId(String orderId) {
 		return orderDao.findByOrderId(orderId);
 	}
 	
@@ -45,6 +49,10 @@ public class OrderService {
 	public List<Order> getComfirmDateIsNull() {
 		return orderDao.getComfirmDateIsNull();
 	}  
+	
+	public List<Order> getNonConfirm() {
+		return orderDao.getNonConfirm();
+	}
 	
 	public List<Order> findAll() {
 		return orderDao.findAll();

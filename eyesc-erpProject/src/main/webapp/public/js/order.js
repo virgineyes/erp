@@ -108,7 +108,6 @@ var getdata = function(orderHeaderObject, orderDetailArray) {
 
 var getDataArray = function(orderHeaderObject, orderDetailArray) {
 	var dataArray = [];
-	console.log(orderDetailArray.length)
 	for (var i = 0; i < orderDetailArray.length;  i++) {
 		dataArray[i] = Object.assign({}, orderHeaderObject, orderDetailArray[i]);
 	}
@@ -134,7 +133,6 @@ function getMaterialId(itemNumber){
 			data : materialId,
 			type : "POST",
 		}).done(function(returnData) {	
-			console.log(returnData);
 			if (returnData != '' && returnData != null) {
 				select = "#price" + itemNumber;
 				$(select).val(returnData.price);
@@ -178,7 +176,6 @@ var getCustomer = function() {
 				type : "POST",
 			}).done(function(returnData) { 
 				if (returnData != null && returnData != '') {
-//					console.log(returnData);
 					$('#insertCustomerTable').bootstrapTable({
 						columns : [{
 						    title: '選擇',
@@ -218,7 +215,6 @@ var getCustomer = function() {
 						        label: "帶入客戶",
 						        className: 'btn-info',
 						        callback: function() {
-						        		console.log(returnData[getCustomerItemNum()]);
 						        		insertCustomer(returnData[getCustomerItemNum()]);
 						        }
 						    }
@@ -241,6 +237,16 @@ var getCustomer = function() {
 		bootbox.alert("<h3 style='color:red'>請確實輸入電話後五碼</h4>");
 	}
 }
+
+function format ( d ) {
+    return '	姓名: '+ d[3] + '<br>' +
+    '身形: '+ d[4] + '<br>' +
+    '客戶來源: '+ d[5] + '<br>' +
+    '電話: '+ d[9] + '<br>' +
+    '地址1: '+ d[10] + '<br>' +
+    '地址2: '+ d[11] + '<br>'
+}
+
 
 $.validator.setDefaults({
     submitHandler: function(form) {
@@ -320,20 +326,19 @@ $().ready(function(){
  });
 
 var createOrder = function() {	
-//	  console.log(JSON.stringify(data));
   	  $.ajax({
   		  url : "createOrder",
   		  data : JSON.stringify(data),
   		  type : "POST",
   		  dataType: "json", 
   		  contentType: "application/json; charset=utf-8",
-	  }).done(function(returnData) {
+	  }).done(function() {
     		  location.reload();
 	  }).fail(function() {
-//    			location.reload();
-		  	bootbox.alert("新增錯誤，請聯繫工程師");
+    		  location.reload();
+		  bootbox.alert("新增錯誤，請聯繫工程師");
 	  }).always(function() {
-		  	console.log('Complete');
+		  console.log('Complete');
 	  });
 }
 
@@ -342,8 +347,105 @@ var searchOrder = function() {
   		  url : "searchOrder",
   		  data : null,
   		  type : "GET",
-	  }).done(function(returnData) {
-		  console.log(returnData);
+	  }).done(function(data) {	
+			var dataSet = [];
+			for (var i = 0; i < data.length; i++) {
+				data[i].createDate = moment(data[i].createDate).format("YYYY/MM/DD"); 
+				
+				if (data[i].shippingDate == null || data[i].shippingDate == 'Invalid date') {
+					data[i].shippingDate = '';	
+				} else {
+					data[i].shippingDate = moment(data[i].shippingDate).format("YYYY/MM/DD");
+				}
+				
+				if (data[i].confirmDate == null || data[i].confirmDate == 'Invalid date') {
+					data[i].confirmDate = '';
+				} else {
+					data[i].confirmDate = moment(data[i].confirmDate).format("YYYY/MM/DD");
+				}
+				dataSet[i] = $.map(data[i], function(el) { return el });
+			}
+			
+			$("#queryOrderTableContainer").show();
+			
+			var table = $('#queryOrderTable').DataTable({
+				 destroy: true,
+			     data: dataSet,
+			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+			     columnDefs: [ {
+		    	 		targets: -1,
+		    	 		data: null,
+		    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>更新</button>"
+		     	},{		            
+	                targets: 0,
+	                orderable:false,
+	                data:null,
+	                defaultContent: "<button class='btn btn-info' id='openData'>細節</button>"
+	            },{
+                    targets: [1, 3, 4, 5, 9, 10, 11, 12, 22, 23],
+                    visible: false
+	            }
+	            ]
+			});
+			
+		    $('#queryOrderTable tbody').on( 'click', 'button#openData', function () {
+		        var tr = $(this).closest('tr');
+		        var row = table.row( tr )
+		        
+		        if ( row.child.isShown() ) {
+		            tr.removeClass( 'details' );
+		            row.child.hide();
+
+		        }
+		        else {
+		            tr.addClass( 'details' );
+		            row.child( format( row.data()) ).show();
+		        }
+		    } );
+		    
+			$('#queryOrderTable tbody').on( 'click', 'button#updateButton', function () {
+				var data = table.row( $(this).parents('tr') ).data();
+				updateOrder(data);
+			});  
+	  }).fail(function() {
+		  bootbox.alert("新增錯誤，請聯繫工程師");
+	  }).always(function() {
+		  console.log('Complete');
+	  });
+}
+
+var updateOrder = function(data) {
+	console.log(data[0]);
+	bootbox.dialog({
+		title: '確認下單',
+		message: "<p>請選「確認」或「取消」</p>",
+		buttons: {
+		    cancel: {
+		        label: "取消下單",
+		        className: 'btn-danger'
+		    },
+		    ok: {
+		        label: "確認下單",
+		        className: 'btn-info',
+		        callback: function(){
+		        		console.log(data[0]);
+		        		confirm(data[0]);
+		        }
+		    }
+		}
+	});
+}
+
+var confirm = function(id) {	
+	console.log(id);
+	  $.ajax({
+		  url : "updateConfirm",
+		  data : {
+			  id: id
+		  },
+		  type : "GET",
+	  }).done(function() {
+		  location.reload();
 	  }).fail(function() {
 		  bootbox.alert("新增錯誤，請聯繫工程師");
 	  }).always(function() {

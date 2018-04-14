@@ -129,7 +129,7 @@ $().ready(function(){
 			
 			$('#queryMaterialTable tbody').on( 'click', 'button', function () {
 				var data = table.row( $(this).parents('tr') ).data();
-				var dialog = bootbox.dialog({
+				bootbox.dialog({
 					title: '修改或刪除客戶資料',
 					message: "<p>請選「修改」或「刪除」</p>",
 					buttons: {
@@ -148,7 +148,7 @@ $().ready(function(){
 					        label: "押更新價格",
 					        className: 'btn-info',
 					        callback: function(){
-					        		showUpdateMaterial(data[0]);
+					        		updateMaterial(data[0]);
 					        }
 					    }
 					}
@@ -162,7 +162,7 @@ $().ready(function(){
 	});
 });
 
-var showUpdateMaterial = function(materialId) {
+var updateMaterial = function(materialId) {
     var modal = bootbox.dialog({
         message: $(".form-content").html(),
         title: "更新價格",
