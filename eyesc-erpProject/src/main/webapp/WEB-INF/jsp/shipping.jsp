@@ -22,7 +22,7 @@
 		   <table id="queryShippingTable" class="table table-striped table-bordered"> 
 	       <thead>
            		<tr>		
-            			<th>訂單ID</th>
+            			<th>細節</th>
 	                <th>客戶ID</th>
                     <th>收件人</th>
 	                <th>運費方案</th>
@@ -34,14 +34,11 @@
                     <th>顏色</th>
 	                <th>價格</th>  
 	                <th>購物金隨貨出</th>
+					<th>出貨日</th>
 	                <th>到貨日</th>
-                    <th>出貨日</th>
                     <th>工作人員</th>
-                    <th>備註</th>
-                    <th>完成</th>
-                    <th>下單日</th>  
-                	    <th>出貨</th>
-                	    <th>資訊</th> 
+                    <th>狀態</th>
+                	    <th>出貨</th> 
             		</tr>
         		</thead>
 			</table>

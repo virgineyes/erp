@@ -293,7 +293,7 @@ $().ready(function(){
 		submitHandler: function(form) {
 			  var stockVosArray = getOrderDetailArray();	    
 			  if (stockVosArray != null) {
-				  bootbox.confirm('確認新增客戶', function(isConfirmed) {	  
+				  bootbox.confirm('確認新增訂單', function(isConfirmed) {	  
 				      if (isConfirmed) {
 				    	  	  var orderHeaderObject = getOrderHeaderObject();
 				    	  	  //show insert information
@@ -357,12 +357,6 @@ var searchOrder = function() {
 				} else {
 					data[i].shippingDate = moment(data[i].shippingDate).format("YYYY/MM/DD");
 				}
-				
-				if (data[i].confirmDate == null || data[i].confirmDate == 'Invalid date') {
-					data[i].confirmDate = '';
-				} else {
-					data[i].confirmDate = moment(data[i].confirmDate).format("YYYY/MM/DD");
-				}
 				dataSet[i] = $.map(data[i], function(el) { return el });
 			}
 			
@@ -375,7 +369,7 @@ var searchOrder = function() {
 			     columnDefs: [ {
 		    	 		targets: -1,
 		    	 		data: null,
-		    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>更新</button>"
+		    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>下單</button>"
 		     	},{		            
 	                targets: 0,
 	                orderable:false,
@@ -415,33 +409,30 @@ var searchOrder = function() {
 }
 
 var updateOrder = function(data) {
-	console.log(data[0]);
 	bootbox.dialog({
-		title: '確認下單',
-		message: "<p>請選「確認」或「取消」</p>",
+		title: '請選擇確認下單',
+		message: "<p>請選擇確認下單</p>",
 		buttons: {
-		    cancel: {
-		        label: "取消下單",
-		        className: 'btn-danger'
-		    },
+//		    cancel: {
+//		        label: "取消",
+//		        className: 'btn-danger'
+//		    },
 		    ok: {
 		        label: "確認下單",
 		        className: 'btn-info',
-		        callback: function(){
-		        		console.log(data[0]);
-		        		confirm(data[0]);
+		        callback: function() {
+		        		confirm(data[1]);
 		        }
 		    }
 		}
 	});
 }
 
-var confirm = function(id) {	
-	console.log(id);
+var confirm = function(orderId) {	
 	  $.ajax({
 		  url : "updateConfirm",
 		  data : {
-			  id: id
+			  orderId: orderId
 		  },
 		  type : "GET",
 	  }).done(function() {

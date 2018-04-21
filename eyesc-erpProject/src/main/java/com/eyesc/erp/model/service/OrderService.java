@@ -30,7 +30,7 @@ public class OrderService {
 		return orderDao.findById(id);
 	}
 	
-	public List<Order> findByOrderId(String orderId) {
+	public Order findByOrderId(String orderId) {
 		return orderDao.findByOrderId(orderId);
 	}
 	
@@ -42,18 +42,14 @@ public class OrderService {
 		return orderDao.findByCreateDate(createDate);
 	}  
 	
-	public List<Order> findByConfirmDate(Date confirmDate) {
-		return orderDao.findByConfirmDate(confirmDate);
-	}  
-	
-	public List<Order> getComfirmDateIsNull() {
-		return orderDao.getComfirmDateIsNull();
-	}  
-	
 	public List<Order> getNonConfirm() {
 		return orderDao.getNonConfirm();
 	}
-	
+
+	public List<Order> getArrival() {
+		return orderDao.getArrival();
+	}
+		
 	public List<Order> findAll() {
 		return orderDao.findAll();
 	}

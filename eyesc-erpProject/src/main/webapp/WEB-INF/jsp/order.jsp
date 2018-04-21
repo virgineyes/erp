@@ -216,11 +216,10 @@
               <th>下單/不下單</th>
               <th>下單人員</th>
               <th>價格</th>
-              <th>訂單日</th>
+              <th>客戶下訂單日</th>
               <th>出貨日</th>
-              <th>結單日</th>
+              <th>到貨日</th>
               <th>狀態</th>
-              <th>庫存ID</th>
             	</tr>
         		</thead>
 		</table>

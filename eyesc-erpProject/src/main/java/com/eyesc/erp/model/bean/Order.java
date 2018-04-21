@@ -83,17 +83,14 @@ public class Order implements Serializable {
     @Column(name = "CREATE_DATE")
     private Date createDate;
     
-    //出貨日
-    @Column(name = "SHIPPING_DATE")
-    private Date shippingDate;
-    
     //到貨日
     @Column(name = "ARRIVAL_DATE")
     private Date arrivalDate;
     
-    //確定此單結束，出貨日加十天
-    @Column(name = "CONFIRM_DATE")
-    private Date confirmDate;
+    //出貨日
+    @Column(name = "SHIPPING_DATE")
+    private Date shippingDate;
+  
       
     @Column(name = "STATUS")
     private String status;
@@ -280,14 +277,6 @@ public class Order implements Serializable {
 
 	public void setShippingDate(Date shippingDate) {
 		this.shippingDate = shippingDate;
-	}
-
-	public Date getConfirmDate() {
-		return confirmDate;
-	}
-
-	public void setConfirmDate(Date confirmDate) {
-		this.confirmDate = confirmDate;
 	}
 
 	public String getStatus() {

@@ -31,10 +31,14 @@
 	
 	<div class="container col-sm-12 col-sm-offset-1">
 		<form class="form-inline">
-			<button type="button" style="margin: 5px 5px -35px 5px"
-				id="saleOrderBtn" class="btn btn-success" disabled>下單</button>
+			<button type="button" style="margin: 5px 5px -5px 5px"
+				id="orderBtn" class="btn btn-success" disabled>Jo下單</button>
+			<button type="button" style="margin: 5px 5px -5px 5px"
+				id="nonStockBtn" class="btn btn-success" disabled>通知沒貨</button>
+			<button id="arriveBtn" type="button" onclick="" class="btn btn-warning"
+				style="margin: 5px 5px -5px 5px" disabled>押到貨日</button>
 			<button id="cancleBtn" type="button" onclick="" class="btn btn-warning"
-				style="margin: 5px 5px -35px 5px" disabled>到貨/銷單/不出貨</button>
+				style="margin: 5px 5px -5px 5px" disabled>銷單/不出貨</button>
 		</form>
 	</div>
 	<br>
@@ -48,6 +52,7 @@
 			<thead>
 				<tr>
 					<th>選擇</th>
+					<th>訂單ID</th>
 					<th>客戶ID</th>
 					<th>身型</th>
 					<th>客戶下單日</th>
@@ -55,19 +60,15 @@
 					<th>剪標尺碼</th>
 					<th>客要尺碼</th>
 					<th>顏色</th>
-					<th>件數</th>
 					<th>JO下單日</th>
-					<th>通知沒貨</th>
 					<th>到貨日</th>
-					<th>不出貨</th>
-					<th>客戶銷單</th>
 					<th>狀態</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<%@ include file="saleOrderBootbox.jsp"%>
-	<%@ include file="arrivalDateBootbox.jsp"%>
+	<%@ include file="salesOrderArrivalBootbox.jsp"%>
 	<%@ include file="cancelDateBootbox.jsp"%>
 	<%@ include file="nonShippingBootbox.jsp"%>
 </body>
