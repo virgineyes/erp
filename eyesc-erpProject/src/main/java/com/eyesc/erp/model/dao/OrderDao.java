@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.eyesc.erp.model.bean.Order;
+import com.eyesc.erp.util.Constants;
 
 public interface OrderDao extends JpaRepository<Order, Long> {
 	
@@ -23,7 +24,7 @@ public interface OrderDao extends JpaRepository<Order, Long> {
     @Query(value = "select * from erp.orders where CONFIRM='待確認'", nativeQuery = true)
     public List<Order> getNonConfirm();
     
-    @Query(value = "select * from erp.orders where STATUS='已到貨'", nativeQuery = true)
+    @Query(value = "select * from erp.orders where STATUS='" + Constants.ARRIVAL + "'", nativeQuery = true)
     public List<Order> getArrival();
 
 }

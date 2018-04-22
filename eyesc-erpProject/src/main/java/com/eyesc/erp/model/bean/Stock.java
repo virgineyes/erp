@@ -18,21 +18,21 @@ public class Stock implements Serializable {
     @GeneratedValue
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
+	
+	@Column(name = "ORDER_ID")
+	private String orderId;
     
     @Column(name = "MATERIAL_ID")
     private String materialId;
+    
+    @Column(name = "WEATHER")
+    private String weather;
     
     @Column(name = "CUT_SIZE")
     private String cutSize;
     
     @Column(name = "CUS_SIZE")
     private String cusSize;
-    
-    @Column(name = "STORAGE")
-    private String storage;
-    
-    @Column(name = "WEATHER")
-    private String weather;
     
     @Column(name = "BUST")
     private String bust;
@@ -54,21 +54,12 @@ public class Stock implements Serializable {
     
     @Column(name = "COLLOR")
     private String color;
-    
-    @Column(name = "COUNT")
-    private Integer count;
  
     @Column(name = "PRICE")
     private Integer price;
     
-    @Column(name = "CLEARANCE")
-    private Integer clearnace;
-    
     @Column(name = "EMPLOYEEID")
     private String employeeId;
-
-    @Column(name = "HINT")
-    private String hint;
 
 	public Long getId() {
 		return id;
@@ -76,6 +67,14 @@ public class Stock implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getMaterialId() {
@@ -100,14 +99,6 @@ public class Stock implements Serializable {
 
 	public void setCusSize(String cusSize) {
 		this.cusSize = cusSize;
-	}
-
-	public String getStorage() {
-		return storage;
-	}
-
-	public void setStorage(String storage) {
-		this.storage = storage;
 	}
 
 	public String getWeather() {
@@ -174,14 +165,6 @@ public class Stock implements Serializable {
 		this.color = color;
 	}
 
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
 	public Integer getPrice() {
 		return price;
 	}
@@ -190,27 +173,11 @@ public class Stock implements Serializable {
 		this.price = price;
 	}
 
-	public Integer getClearnace() {
-		return clearnace;
-	}
-
-	public void setClearnace(Integer clearnace) {
-		this.clearnace = clearnace;
-	}
-
 	public String getEmployeeId() {
 		return employeeId;
 	}
 
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
-	}
-
-	public String getHint() {
-		return hint;
-	}
-
-	public void setHint(String hint) {
-		this.hint = hint;
 	}
 }

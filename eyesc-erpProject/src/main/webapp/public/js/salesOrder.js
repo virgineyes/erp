@@ -72,31 +72,49 @@ $().ready(function() {
 				],
 			});
 			
-			var saleOrderArray=[];
-			$("#querySalesOrderTable tbody").on("click", "input#selectSaleOrder", function(){
+			var saleOrderArray = [];
+			$("#querySalesOrderTable tbody").on("click", "input#selectSaleOrder", function() {
+				var orderBoolean = true;
+				var nonStockBoolean = true;
+				var arriveBoolean = true;
+				var cancleBoolean = true;
+				var nonShippingBoolean = true;
 				var data = table.row( $(this).parents('tr') ).data();
 				if($(this).prop("checked")) {
 					saleOrderArray.push(data);
-					$('button#orderBtn').attr('disabled', false);
-					$('button#nonStockBtn').attr('disabled', false);
-
-					if (data[9] != "") {
-						$('button#arriveBtn').attr('disabled', false);
-						$('button#cancleBtn').attr('disabled', false);
-					} else { 
-						$('button#arriveBtn').attr('disabled', true);
-						$('button#cancleBtn').attr('disabled', true)
-					}
 				} else {
-					console.log('clickB');
 					saleOrderArray.remove(data);
-					if (saleOrderArray == [] || saleOrderArray == "") {
-						$('button#nonStockBtn').attr('disabled', true);
-						$('button#orderBtn').attr('disabled', true);
-						$('button#arriveBtn').attr('disabled', true);
-						$('button#cancleBtn').attr('disabled', true)
-					}
 				}
+				
+				var readyOrderCount = 0;
+				var haveOrderedCount = 0;
+				var haveArrivalCount = 0;
+				for (var i = 0; i < saleOrderArray.length; i++) {
+					if (saleOrderArray[i][11] === "沒貨") {
+						break;
+					}
+					if (saleOrderArray[i][11] === "已到貨") {
+						haveArrivalCount++;
+					} else if (saleOrderArray[i][11] === "JO已下單") {
+						haveOrderedCount++;
+					} else if (saleOrderArray[i][11] === "準備下單") {
+						readyOrderCount++;
+					}
+				}		
+				
+				if (saleOrderArray.length != 0 && readyOrderCount == saleOrderArray.length) {
+					orderBoolean = false;
+					nonStockBoolean = false;
+				} else if (saleOrderArray.length != 0 && haveOrderedCount == saleOrderArray.length) {
+					orderBoolean = false;
+					nonStockBoolean = false;
+					arriveBoolean = false;
+				} else if (saleOrderArray.length != 0 && haveArrivalCount == saleOrderArray.length) {
+					cancleBoolean = false;
+					nonShippingBoolean = false;
+				}
+				
+				updateBtn(orderBoolean, nonStockBoolean, arriveBoolean, cancleBoolean, nonShippingBoolean);
 			});
 			
 			var orderIds = [];
@@ -121,47 +139,49 @@ $().ready(function() {
 				updateArrivalDate(orderIds);
 			});
 				
-//			$("button#cancleBtn").on('click', function(){
-//				for(var i = 0; i < saleOrderArray.length; i++ ){
-//					saleData[i] = saleOrderArray[i];
-//					console.log(saleData);
-//				}
-//				var dialog = bootbox.dialog({
-//					size: 'larger',
-//					title: '	到貨/銷單/不出貨',
-//					message: "<p>請選擇[到貨] or [銷單/不出貨]</p>",
-//					buttons: {
-//					    cancel: {
-//					        label: "	到貨",
-//					        className: 'btn btn-success',
-//						    callback: function(){
-//						    		arricalFunction(saleData);
-//						    		}
-//					        },
-//						    ok: {
-//						        label: "銷單",
-//						        className: 'btn-warning',
-//						        callback: function(){
-//						        		cancelFunction(saleData);
-//						        }
-//						    },
-//						    wrong: {
-//						    		label: "不出貨",
-//						        className: 'btn-info',
-//						        callback: function(){
-//						        		nonShippingFunction(saleData);
-//						        },
-//						    }
-//						}
-//					});
-//				});
-			}).fail(function() {
-				bootbox.alert("資料錯誤，請聯繫工程師");
-			}).always(function() {
-				console.log('complete');
+			$("button#cancleBtn").on('click', function(){
+				for(var i = 0; i < saleOrderArray.length; i++) {
+					orderIds[i] = saleOrderArray[i][1];
+					console.log(orderIds);
+				}
+		
+				bootbox.dialog({
+					size: 'larger',
+					title: '銷單入庫/不入庫',
+					message: "<p>請選擇 入庫 or 不入庫</p>",
+					buttons: {
+						okl: {
+					        label: "入庫",
+					        className: 'btn btn-success',
+						    callback: function() {
+						    		insertStock(orderIds);
+						    		}
+					    },
+					    ok: {
+					        label: "不入庫",
+					        className: 'btn-warning',
+					        callback: function() {
+					        		cancelOrder(orderIds);
+					        	}
+					    	}
+					}
+				});
 			});
+		}).fail(function() {
+			bootbox.alert("資料錯誤，請聯繫工程師");
+		}).always(function() {
+			console.log('complete');
+		});
 	});
 });
+
+var updateBtn = function(orderBoolean, nonStockBoolean, arriveBoolean, cancleBoolean, nonShippingBoolean) {
+	$('button#nonStockBtn').attr('disabled', orderBoolean);
+	$('button#orderBtn').attr('disabled', nonStockBoolean);
+	$('button#arriveBtn').attr('disabled', arriveBoolean);
+	$('button#cancleBtn').attr('disabled', cancleBoolean);
+	$('button#nonShippingBtn').attr('disabled', nonShippingBoolean);
+}
 
 var order = function(orderIds) {
     var modal = bootbox.dialog({
@@ -240,7 +260,6 @@ var updateArrivalDate = function(orderIds) {
             className: "btn btn-primary pull-left",
             callback: function() {	
             		var arrivalDate = moment($('.modal-dialog .bootbox-body input#arrivalDate').val()).format("YYYYMMDD");
-			
             		var data = {
             			arrivalDate : arrivalDate,
             			orderIds : orderIds 
@@ -275,114 +294,34 @@ var updateArrivalDate = function(orderIds) {
     modal.modal("show");
 }
 
-
-var cancelFunction = function(saleOrderArraydata) {
-    var modal = bootbox.dialog({
-    		size: 'larger',
-        message: $(".form-content3").html(),
-        title: "客戶銷單",
-        buttons: [
-        {
-            label: "確認",
-            className: "btn btn-primary pull-left",
-            callback: function() {	
-              var dataSet=[];
-              for(var i = 0; i < saleOrderArraydata.length; i++){
-            	      var data = {
-            	    		  salesOrder: $('.modal-dialog .bootbox-body select#salesOrder').val(), 			
-            	      };
-            	      dataSet[i] = data;
-            	      
-              }
-			  console.log(dataSet);
-			  
-			  bootbox.confirm('確認送出?', function(isConfirmed) {
-			      if (isConfirmed) {
-				      $.ajax({
-							url : "updateMaterial",
-							data : dataSet,
-							type : "POST",
-						}).done(function(dataSet) {
-							reload();
-						}).fail(function() {
-							bootbox.alert("新增錯誤，請聯繫工程師");
-						}).always(function() {
-							console.log('Complete');
-						});
-			      }
-			  });
-            }
-          },
-          {
-            label: "Close",
-            className: "btn btn-default pull-left",
-            callback: function() {
-            }
-          }
-        ],
-        show: false,
-        onEscape: function() {
-          modal.modal("hide");
-        }
-    });
-    
-    modal.modal("show");
-}
-var nonShippingFunction = function(saleOrderArraydata) {
-    var modal = bootbox.dialog({
-    		size: 'larger',
-        message: $(".form-content4").html(),
-        title: "不出貨",
-        buttons: [
-        {
-            label: "確認",
-            className: "btn btn-primary pull-left",
-            callback: function() {	
-              var dataSet=[];
-              for(var i = 0; i < saleOrderArraydata.length; i++){
-            	      var data = {
-            	    		  reasonForNoShipped: $('.modal-dialog .bootbox-body select#reasonForNoShipped').val(), 			
-            	      };
-            	      dataSet[i] = data;
-            	      
-              }
-			  console.log(dataSet);
-			  
-			  bootbox.confirm('確認送出?', function(isConfirmed) {
-			      if (isConfirmed) {
-				      $.ajax({
-							url : "updateMaterial",
-							data : dataSet,
-							type : "POST",
-						}).done(function(dataSet) {
-							reload();
-						}).fail(function() {
-							bootbox.alert("新增錯誤，請聯繫工程師");
-						}).always(function() {
-							console.log('Complete');
-						});
-			      }
-			  });
-            }
-          },
-          {
-            label: "Close",
-            className: "btn btn-default pull-left",
-            callback: function() {
-            }
-          }
-        ],
-        show: false,
-        onEscape: function() {
-          modal.modal("hide");
-        }
-    });
-    
-    modal.modal("show");
+var insertStock = function(orderIds) {
+	$.ajax({
+		url : "insertStock",
+		data : {
+			orderIds : orderIds
+		},
+		type : "POST",
+	}).done(function(returnData) {	
+		reload();
+	}).fail(function() {
+		bootbox.alert("新增錯誤，請聯繫工程師");
+	}).always(function() {
+		console.log('Complete');
+	});
 }
 
-
-
-
-
-
+var cancelOrder = function(orderIds) {
+	$.ajax({
+		url : "cancelOrder",
+		data : {
+			orderIds : orderIds
+		},
+		type : "POST",
+	}).done(function(returnData) {	
+		reload();
+	}).fail(function() {
+		bootbox.alert("新增錯誤，請聯繫工程師");
+	}).always(function() {
+		console.log('Complete');
+	});
+}

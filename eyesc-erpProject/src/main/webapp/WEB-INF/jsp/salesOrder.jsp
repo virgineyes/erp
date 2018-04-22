@@ -35,10 +35,12 @@
 				id="orderBtn" class="btn btn-success" disabled>Jo下單</button>
 			<button type="button" style="margin: 5px 5px -5px 5px"
 				id="nonStockBtn" class="btn btn-success" disabled>通知沒貨</button>
-			<button id="arriveBtn" type="button" onclick="" class="btn btn-warning"
+			<button id="arriveBtn" type="button" onclick="" class="btn btn-info"
 				style="margin: 5px 5px -5px 5px" disabled>押到貨日</button>
 			<button id="cancleBtn" type="button" onclick="" class="btn btn-warning"
-				style="margin: 5px 5px -5px 5px" disabled>銷單/不出貨</button>
+				style="margin: 5px 5px -5px 5px" disabled>銷單</button>
+			<button id="nonShippingBtn" type="button" onclick="" class="btn btn-warning"
+				style="margin: 5px 5px -5px 5px" disabled>不出貨</button>
 		</form>
 	</div>
 	<br>

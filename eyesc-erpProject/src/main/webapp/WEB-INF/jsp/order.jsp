@@ -55,11 +55,10 @@
             	<div class="form-group control-label col-sm-2">
                 <label for="deliveryType">運費方案:</label>
                     <select class="form-control" id="deliveryType" name="deliveryType">
-                    <option value="本島運費60">本島運費60</option>
-                    <option value="外島運費200">外島運費200</option>
+                    <option value="本島">依本島運費規則</option>
+                    <option value="外島">依外島運費規則</option>
                     <option value="完全免運">完全免運</option>
-                    <option value="三件或滿2000免運">三件或滿2000免運</option>
-                    <option value="來貨問題新單免運">來貨問題新單免運</option>
+                    <option value="這單免運">這單免運</option>
                 </select>
             </div>
             

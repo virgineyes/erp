@@ -12,23 +12,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eyesc.erp.model.bean.Order;
 import com.eyesc.erp.model.bean.SalesOrder;
+import com.eyesc.erp.model.bean.Stock;
 import com.eyesc.erp.model.service.OrderService;
 import com.eyesc.erp.model.service.SalesOrderService;
+import com.eyesc.erp.model.service.StockService;
+import com.eyesc.erp.util.Constants;
 import com.eyesc.erp.util.Util;
 
 @RestController
 public class SalesOrderRest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SalesOrderRest.class);
-	
-	private static final String ORDER_CONFIRM = "JO已下單";
-	private static final String NON_STOCK = "沒貨";	
-	private static final String ARRIVAL = "已到貨";
-	
+
 	@Autowired
 	private OrderService orderService;
 	
 	@Autowired
 	private SalesOrderService salesOrderSerivce;
+	
+	@Autowired
+	private StockService stockService;
+	
 
 	@RequestMapping(value = "/searchSalesOrder")
 	public List<SalesOrder> searchSalesOrder() {
@@ -44,15 +47,15 @@ public class SalesOrderRest {
 	public void updateOrderDate(String orderDate, @RequestParam(value = "orderIds[]")  String[] orderIds) {
 		LOGGER.info("orderDate : {}", orderDate);
 		for (int i = 0; i < orderIds.length; i++) {
-			LOGGER.info("oderId : {}", orderIds[i]);
+			LOGGER.info("Order, OderId : {}", orderIds[i]);
 			String orderId = orderIds[i];
 			SalesOrder salesOrder = salesOrderSerivce.findByOrderId(orderId);
-			salesOrder.setStatus(ORDER_CONFIRM);
+			salesOrder.setStatus(Constants.ORDER_CONFIRM);
 			salesOrder.setOrderDate(Util.convert(orderDate));
 			salesOrderSerivce.save(salesOrder);
 			
 			Order order = orderService.findByOrderId(orderId);
-			order.setStatus(ORDER_CONFIRM);
+			order.setStatus(Constants.ORDER_CONFIRM);
 			orderService.save(order);
 		}
 	}
@@ -60,14 +63,14 @@ public class SalesOrderRest {
 	@RequestMapping(value = "/updateNonStockStatus")
 	public void updateNonStockStatus(@RequestParam(value = "orderIds[]")  String[] orderIds) {
 		for (int i = 0; i < orderIds.length; i++) {
-			LOGGER.info("oderId : {}", orderIds[i]);
+			LOGGER.info("Non Stock, OderId : {}", orderIds[i]);
 			String orderId = orderIds[i];
 			SalesOrder salesOrder = salesOrderSerivce.findByOrderId(orderId);
-			salesOrder.setStatus(NON_STOCK);
+			salesOrder.setStatus(Constants.NON_STOCK);
 			salesOrderSerivce.save(salesOrder);
 			
 			Order order = orderService.findByOrderId(orderId);
-			order.setStatus(NON_STOCK);
+			order.setStatus(Constants.NON_STOCK);
 			orderService.save(order);
 		}
 	}
@@ -76,15 +79,55 @@ public class SalesOrderRest {
 	public void updateArriveDate(String arrivalDate, @RequestParam(value = "orderIds[]")  String[] orderIds) {
 		LOGGER.info("orderDate : {}", arrivalDate);
 		for (int i = 0; i < orderIds.length; i++) {
-			LOGGER.info("oderId : {}", orderIds[i]);
+			LOGGER.info("Arrival, OderId : {}", orderIds[i]);
 			String orderId = orderIds[i];
 			SalesOrder salesOrder = salesOrderSerivce.findByOrderId(orderId);
-			salesOrder.setStatus(ARRIVAL);
+			salesOrder.setStatus(Constants.ARRIVAL);
 			salesOrder.setArrivalDate(Util.convert(arrivalDate));
 			salesOrderSerivce.save(salesOrder);
 			
 			Order order = orderService.findByOrderId(orderId);
-			order.setStatus(ARRIVAL);
+			order.setStatus(Constants.ARRIVAL);
+			orderService.save(order);
+		}
+	}
+	
+	@RequestMapping(value = "/insertStock")
+	public void insertStock(@RequestParam(value = "orderIds[]")  String[] orderIds) {
+		for (int i = 0; i < orderIds.length; i++) {
+			LOGGER.info("Insert Stock, OrderId : {}", orderIds[i]);
+			String orderId = orderIds[i];
+			SalesOrder salesOrder = salesOrderSerivce.findByOrderId(orderId);
+			salesOrder.setStatus(Constants.CANCEL_STOCK);
+			salesOrderSerivce.save(salesOrder);
+			
+			Order order = orderService.findByOrderId(orderId);
+			order.setStatus(Constants.CANCEL_STOCK);
+			
+			Stock stock = new Stock();
+			stock.setOrderId(order.getOrderId());
+			stock.setMaterialId(order.getMaterialId());
+			stock.setCutSize(order.getCutSize());
+			stock.setCusSize(order.getCusSize());
+			stock.setPrice(order.getPrice());
+			stockService.save(stock);
+			
+			orderService.save(order);
+		}
+	}
+	
+	
+	@RequestMapping(value = "/cancelOrder")
+	public void cancelOrder(@RequestParam(value = "orderIds[]")  String[] orderIds) {
+		for (int i = 0; i < orderIds.length; i++) {
+			LOGGER.info("Cancel, OderId : {}", orderIds[i]);
+			String orderId = orderIds[i];
+			SalesOrder salesOrder = salesOrderSerivce.findByOrderId(orderId);
+			salesOrder.setStatus(Constants.CANCEL);
+			salesOrderSerivce.save(salesOrder);
+			
+			Order order = orderService.findByOrderId(orderId);
+			order.setStatus(Constants.CANCEL);
 			orderService.save(order);
 		}
 	}

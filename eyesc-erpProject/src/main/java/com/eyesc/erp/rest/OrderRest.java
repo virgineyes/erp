@@ -22,6 +22,7 @@ import com.eyesc.erp.model.bean.StockVo;
 import com.eyesc.erp.model.service.CustomerService;
 import com.eyesc.erp.model.service.OrderService;
 import com.eyesc.erp.model.service.SalesOrderService;
+import com.eyesc.erp.util.Constants;
 import com.google.common.base.Strings;
 
 @RestController
@@ -37,7 +38,6 @@ public class OrderRest {
 	@Autowired
 	private SalesOrderService salesOrderSerivce;
 	
-	private static final String READY_ORDER = "準備下單";
 	
 	@RequestMapping(value = "/createOrder")
 	public void createOrder(@RequestBody OrderVo orderVo) {
@@ -70,7 +70,7 @@ public class OrderRest {
 		salesOrder.setCutSize(stockVo.getCutSize());
 		salesOrder.setCusSize(stockVo.getCusSize());
 		salesOrder.setColor(stockVo.getColor());
-		salesOrder.setStatus(READY_ORDER);
+		salesOrder.setStatus(Constants.READY_ORDER);
 	}
 
 	private void addNewOrder(OrderVo orderVo, Date today, String date, StockVo stockVo, int i) {
@@ -105,7 +105,18 @@ public class OrderRest {
 		if ("待確認".equals(stockVo.getConfirm())) {
 			order.setStatus("待確認");
 		} else if ("下單".equals(stockVo.getConfirm())) {
-			order.setStatus(READY_ORDER);
+			SalesOrder salesOrder = new SalesOrder();
+			salesOrder.setOrderId(order.getOrderId());
+			salesOrder.setCustomerId(order.getCustomerId());
+			salesOrder.setBodyType(order.getBodyType());
+			salesOrder.setCreateDate(today);
+			salesOrder.setMaterialId(order.getMaterialId());
+			salesOrder.setCutSize(order.getCutSize());
+			salesOrder.setCusSize(order.getCusSize());
+			salesOrder.setColor(order.getColor());
+			salesOrder.setStatus(Constants.READY_ORDER);
+			salesOrderSerivce.save(salesOrder);
+			order.setStatus(Constants.READY_ORDER);
 		} else if ("不下單".equals(stockVo.getConfirm())) {
 			order.setStatus("不單中");
 		}
@@ -145,7 +156,7 @@ public class OrderRest {
 
 		Order order = orderService.findByOrderId(orderId);
 		order.setConfirm("下單");
-		order.setStatus(READY_ORDER);
+		order.setStatus(Constants.READY_ORDER);
 		order.setCreateDate(today);
 		orderService.save(order);
 		
@@ -158,7 +169,7 @@ public class OrderRest {
 		salesOrder.setCutSize(order.getCutSize());
 		salesOrder.setCusSize(order.getCusSize());
 		salesOrder.setColor(order.getColor());
-		salesOrder.setStatus(READY_ORDER);
+		salesOrder.setStatus(Constants.READY_ORDER);
 		salesOrderSerivce.save(salesOrder);
 	}
 	
