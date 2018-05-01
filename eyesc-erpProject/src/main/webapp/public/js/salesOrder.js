@@ -33,7 +33,6 @@ $().ready(function() {
 			data : null,
 			type: 'GET',
 		}).done(function(data) {
-			console.log(data);
 			var dataSet = [];
 			for (var i = 0; i < data.length; i++) {
 				data[i].createDate = moment(data[i].createDate).format("YYYY/MM/DD"); 
@@ -97,7 +96,7 @@ $().ready(function() {
 						haveArrivalCount++;
 					} else if (saleOrderArray[i][11] === "JO已下單") {
 						haveOrderedCount++;
-					} else if (saleOrderArray[i][11] === "準備下單") {
+					} else if (saleOrderArray[i][11] === "要下單") {
 						readyOrderCount++;
 					}
 				}		
@@ -139,10 +138,9 @@ $().ready(function() {
 				updateArrivalDate(orderIds);
 			});
 				
-			$("button#cancleBtn").on('click', function(){
+			$("button#cancleBtn").on('click', function() {
 				for(var i = 0; i < saleOrderArray.length; i++) {
 					orderIds[i] = saleOrderArray[i][1];
-					console.log(orderIds);
 				}
 		
 				bootbox.dialog({
@@ -162,6 +160,34 @@ $().ready(function() {
 					        className: 'btn-warning',
 					        callback: function() {
 					        		cancelOrder(orderIds);
+					        	}
+					    	}
+					}
+				});
+			});
+			
+			$("button#nonShippingBtn").on('click', function() {
+				for(var i = 0; i < saleOrderArray.length; i++) {
+					orderIds[i] = saleOrderArray[i][1];
+				}
+		
+				bootbox.dialog({
+					size: 'larger',
+					title: '不出貨 入庫/不入庫',
+					message: "<p>請選擇 入庫 or 不入庫</p>",
+					buttons: {
+						okl: {
+					        label: "入庫",
+					        className: 'btn btn-success',
+						    callback: function() {
+					    			insertStockNonShipping(orderIds);
+					    		}
+					    },
+					    ok: {
+					        label: "不入庫",
+					        className: 'btn-warning',
+					        callback: function() {
+					        		cancelOrderNonShipping(orderIds);
 					        	}
 					    	}
 					}

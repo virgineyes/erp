@@ -182,12 +182,12 @@
 	
 	<br/>
 
-    <div class="container">
+	<div class="container">
   	  <div class="col-sm-12">
-          <button type="button" onclick="searchOrder()" class="btn btn-primary">搜尋待確認訂單</button>
+       <h3>待確認訂單：</h3>
       </div>
     </div>
-    
+
 	<br/>
 	
 	 <div class="container" id="queryOrderTableContainer" style="display:none">
@@ -218,7 +218,8 @@
               <th>客戶下訂單日</th>
               <th>出貨日</th>
               <th>到貨日</th>
-              <th>狀態</th>
+              <th>下單</th>
+              <th>更新</th>
             	</tr>
         		</thead>
 		</table>

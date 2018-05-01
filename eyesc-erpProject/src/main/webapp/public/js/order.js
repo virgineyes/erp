@@ -323,6 +323,8 @@ $().ready(function(){
 		}
 	});
 	
+	searchOrder();
+	
  });
 
 var createOrder = function() {	
@@ -350,6 +352,7 @@ var searchOrder = function() {
 	  }).done(function(data) {	
 			var dataSet = [];
 			for (var i = 0; i < data.length; i++) {
+				data[i].lastColumn = "";
 				data[i].createDate = moment(data[i].createDate).format("YYYY/MM/DD"); 
 				
 				if (data[i].shippingDate == null || data[i].shippingDate == 'Invalid date') {
@@ -360,26 +363,33 @@ var searchOrder = function() {
 				dataSet[i] = $.map(data[i], function(el) { return el });
 			}
 			
+			console.log(dataSet);
+			
 			$("#queryOrderTableContainer").show();
 			
 			var table = $('#queryOrderTable').DataTable({
 				 destroy: true,
 			     data: dataSet,
 			     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
-			     columnDefs: [ {
-		    	 		targets: -1,
-		    	 		data: null,
-		    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>下單</button>"
-		     	},{		            
-	                targets: 0,
-	                orderable:false,
-	                data:null,
-	                defaultContent: "<button class='btn btn-info' id='openData'>細節</button>"
-	            },{
-                    targets: [1, 3, 4, 5, 9, 10, 11, 12, 22, 23],
-                    visible: false
-	            }
-	            ]
+			     columnDefs: [ 
+			    	 	{
+			    	 		targets: -2,
+			    	 		data: null,
+			    	 		defaultContent: "<button class='btn btn-success' id='orderButton'>下單</button>"
+				    },{
+			    	 		targets: -1,
+			    	 		data: null,
+			    	 		defaultContent: "<button class='btn btn-warning' id='updateButton'>更新</button>"
+			     	},{		            
+		                targets: 0,
+		                orderable:false,
+		                data:null,
+		                defaultContent: "<button class='btn btn-info' id='openData'>細節</button>"
+		            },{
+	                    targets: [1, 3, 4, 5, 9, 10, 11, 12, 18, 22, 23],
+	                    visible: false
+		            }
+	             ]
 			});
 			
 		    $('#queryOrderTable tbody').on( 'click', 'button#openData', function () {
@@ -397,10 +407,15 @@ var searchOrder = function() {
 		        }
 		    } );
 		    
+			$('#queryOrderTable tbody').on( 'click', 'button#orderButton', function () {
+				var data = table.row( $(this).parents('tr') ).data();
+				order(data);
+			});
+						   
 			$('#queryOrderTable tbody').on( 'click', 'button#updateButton', function () {
 				var data = table.row( $(this).parents('tr') ).data();
 				updateOrder(data);
-			});  
+			}); 
 	  }).fail(function() {
 		  bootbox.alert("新增錯誤，請聯繫工程師");
 	  }).always(function() {
@@ -408,7 +423,7 @@ var searchOrder = function() {
 	  });
 }
 
-var updateOrder = function(data) {
+var order = function(data) {
 	bootbox.dialog({
 		title: '請選擇確認下單',
 		message: "<p>請選擇確認下單</p>",
@@ -427,6 +442,57 @@ var updateOrder = function(data) {
 		}
 	});
 }
+
+var updateOrder = function(data) {
+	  var modal = bootbox.dialog({
+	        message: $(".form-content").html(),
+	        title: "更新價格",
+	        buttons: [
+	        {
+	            label: "確認更新",
+	            className: "btn btn-primary pull-left",
+	            callback: function() {	
+	              var date = moment($('.modal-dialog .bootbox-body input#date').val()).format("YYYYMMDD");
+	              data = {
+						  materialId: materialId,
+						  updatePrice: $('.modal-dialog .bootbox-body input#updatePrice').val(),
+						  date: date,
+			      };  
+				  console.log(data);
+				  
+				  bootbox.confirm('確認更新價格', function(isConfirmed) {
+				      if (isConfirmed) {
+					      $.ajax({
+								url : "updateMaterial",
+								data : data,
+								type : "POST",
+							}).done(function(data) {
+								reload();
+							}).fail(function() {
+								bootbox.alert("新增錯誤，請聯繫工程師");
+							}).always(function() {
+								console.log('Complete');
+							});
+				      }
+				  });
+
+	            }
+	          },
+	          {
+	            label: "Close",
+	            className: "btn btn-default pull-left",
+	            callback: function() {
+	            }
+	          }
+	        ],
+	        show: false,
+	        onEscape: function() {
+	          modal.modal("hide");
+	        }
+	    });
+	    modal.modal("show");
+}
+
 
 var confirm = function(orderId) {	
 	  $.ajax({

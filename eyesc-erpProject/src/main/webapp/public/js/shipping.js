@@ -8,7 +8,7 @@ function format ( d ) {
 //    return '	工作人員: '+ d[14] + "<br>" + "下單日:" + d[17] + "<br>" + "備註:" + d[15]  + "<br>"  
 }
 
-$(document).ready(function(){
+$().ready(function(){
 	$(function(){
 		$.ajax({
 		    url: "searchArrivalOrder",
@@ -20,7 +20,8 @@ $(document).ready(function(){
 			for (var i = 0; i < returnData.length; i++) { 
 				
 				if (returnData[i].shippingDate == null || returnData[i].shippingDate == 'Invalid date') {
-					returnData[i].shippingDate = '';	
+						
+					[i].shippingDate = '';	
 				} else {
 					returnData[i].shippingDate = moment(returnData[i].shippingDate).format("YYYY/MM/DD");
 				}
@@ -33,13 +34,11 @@ $(document).ready(function(){
 				
 				dataArray[i] = [returnData[i].orderId, returnData[i].customerId, returnData[i].name, returnData[i].paymentTerm,
 					returnData[i].noticeType, returnData[i].phone, returnData[i].materialId, returnData[i].cutSize,
-					returnData[i].cusSize, returnData[i].color, returnData[i].price, "???", returnData[i].shippingDate,
+					returnData[i].cusSize, returnData[i].color, returnData[i].price, returnData[i].shippingDate,
 					returnData[i].arraivlDate, returnData[i].employee, returnData[i].status, ""];
 			}
 
 			$("#queryShippingTableContainer").show();
-			
-			console.log(dataArray);
 		
 		var table = $('#queryShippingTable').DataTable({
 			 destroy: true,
@@ -56,7 +55,7 @@ $(document).ready(function(){
 		     		orderable: false,
 		     		targets: 0,
 		     	},{
-//                    targets: [0,14,15,17],
+//                    targets: [0,14,15,17]
 //                    visible: false
             }],
 		});
